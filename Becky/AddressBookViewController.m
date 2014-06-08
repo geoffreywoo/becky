@@ -33,10 +33,6 @@ ABAddressBookRef addressBook;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
     self.continueButton.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
     __block BOOL accessGranted = NO;
@@ -58,6 +54,10 @@ ABAddressBookRef addressBook;
     } else {
         self.continueButton.hidden = NO;
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
 
 }
 

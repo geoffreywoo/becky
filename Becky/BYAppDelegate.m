@@ -11,8 +11,14 @@
 
 @implementation BYAppDelegate
 
+- (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame
+{
+    [application setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     // Override point for customization after application launch.
     [Parse setApplicationId:@"PDQyon3c2DBOu3VMzBlVOSSiW28vYmuTWiNquJIs"
                   clientKey:@"PIeYILJRXwVacmuxHz94BQNLcEDjjqNxalJ1J8fZ"];

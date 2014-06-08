@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		60BA5C6A1944008F008197CB /* BYInviteMenuViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */; };
+		60BA5C6D194400A0008197CB /* BYInviteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C6C194400A0008197CB /* BYInviteViewCell.m */; };
 		60D6DBCD193FD8440015D890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBCC193FD8440015D890 /* Foundation.framework */; };
 		60D6DBCF193FD8440015D890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBCE193FD8440015D890 /* CoreGraphics.framework */; };
 		60D6DBD1193FD8440015D890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBD0193FD8440015D890 /* UIKit.framework */; };
@@ -56,6 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		60BA5C681944008F008197CB /* BYInviteMenuViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteMenuViewCell.h; sourceTree = "<group>"; };
+		60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteMenuViewCell.m; sourceTree = "<group>"; };
+		60BA5C6B194400A0008197CB /* BYInviteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteViewCell.h; sourceTree = "<group>"; };
+		60BA5C6C194400A0008197CB /* BYInviteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteViewCell.m; sourceTree = "<group>"; };
 		60D6DBC9193FD8440015D890 /* Becky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Becky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60D6DBCC193FD8440015D890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60D6DBCE193FD8440015D890 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -193,6 +199,10 @@
 				60D6DC33194036A60015D890 /* BYHomeViewController.m */,
 				60D6DC3B194038EB0015D890 /* BYMainViewCell.h */,
 				60D6DC3C194038EB0015D890 /* BYMainViewCell.m */,
+				60BA5C6B194400A0008197CB /* BYInviteViewCell.h */,
+				60BA5C6C194400A0008197CB /* BYInviteViewCell.m */,
+				60BA5C681944008F008197CB /* BYInviteMenuViewCell.h */,
+				60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */,
 				60D6DC24194006960015D890 /* Login */,
 				60D6DBE7193FD8450015D890 /* Images.xcassets */,
 				60D6DC39194037B30015D890 /* poo.png */,
@@ -351,7 +361,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60BA5C6A1944008F008197CB /* BYInviteMenuViewCell.m in Sources */,
 				60D6DBE6193FD8450015D890 /* BYViewController.m in Sources */,
+				60BA5C6D194400A0008197CB /* BYInviteViewCell.m in Sources */,
 				60D6DBD9193FD8450015D890 /* main.m in Sources */,
 				60D6DBDD193FD8450015D890 /* BYAppDelegate.m in Sources */,
 				60D6DC34194036A60015D890 /* BYHomeViewController.m in Sources */,
@@ -581,6 +593,7 @@
 				60D6DC00193FD8450015D890 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		60D6DC01193FD8450015D890 /* Build configuration list for PBXNativeTarget "BeckyTests" */ = {
 			isa = XCConfigurationList;
@@ -589,6 +602,7 @@
 				60D6DC03193FD8450015D890 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,7 @@
         <scene sceneID="ReD-YB-vUm">
             <objects>
                 <navigationController definesPresentationContext="YES" id="vgn-3e-faY" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" alpha="0.80000000000000004" contentMode="scaleToFill" id="TU2-YZ-LIh">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -18,12 +19,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="45p-MF-WDk" kind="relationship" relationship="rootViewController" id="uKN-zc-BE6"/>
+                        <segue destination="45p-MF-WDk" kind="relationship" relationship="rootViewController" id="idE-yS-XER"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="48R-FF-Hez" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1476" y="826"/>
+            <point key="canvasLocation" x="932" y="906"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -223,19 +224,19 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ahQ-Rx-x4J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1461" y="138"/>
+            <point key="canvasLocation" x="1553" y="786"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="bgf-p9-S2m">
             <objects>
                 <tableViewController id="Eis-nd-Mho" customClass="BYHomeViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6bN-Ii-3lI">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="110" sectionHeaderHeight="1" sectionFooterHeight="1" id="6bN-Ii-3lI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="BYMainViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="BYMainViewCell" rowHeight="110" id="hdx-Jv-ABx" customClass="BYMainViewCell">
-                                <rect key="frame" x="0.0" y="86" width="320" height="110"/>
+                                <rect key="frame" x="0.0" y="45" width="320" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hdx-Jv-ABx" id="f78-lm-nBY">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
@@ -262,7 +263,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="GW" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pAX-Nz-rsE">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="GW" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pAX-Nz-rsE">
                                             <rect key="frame" x="6" y="14" width="105" height="79"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -278,6 +279,15 @@
                                     <outlet property="initialsField" destination="pAX-Nz-rsE" id="9d4-rS-vrm"/>
                                     <outlet property="pizzaButton" destination="zhb-Sk-JAV" id="W2P-p3-HzA"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="BYInviteMenuViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="BYInviteMenuViewCell" rowHeight="110" id="3Zf-gA-ala" customClass="BYInviteMenuViewCell">
+                                <rect key="frame" x="0.0" y="155" width="320" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Zf-gA-ala" id="cmH-nK-7Yn">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -303,6 +313,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="uKN-zc-BE6"/>
+        <segue reference="idE-yS-XER"/>
     </inferredMetricsTieBreakers>
 </document>

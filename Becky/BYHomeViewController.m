@@ -8,8 +8,11 @@
 
 #import "BYHomeViewController.h"
 #import "BYMainViewCell.h"
+#import "BYInviteMenuViewCell.h"
 
 @interface BYHomeViewController ()
+
+@property (nonatomic, strong) NSArray *beckyColors;
 
 @end
 
@@ -28,6 +31,16 @@
 {
     [super viewDidLoad];
     
+    _beckyColors = [[NSArray alloc] initWithObjects:
+     [UIColor colorWithRed:255/255.0 green:127/255.0 blue:183/255.0 alpha:1],
+     [UIColor colorWithRed:127/255.0 green:219/255.0 blue:255/255.0 alpha:1],
+     [UIColor colorWithRed:255/255.0 green:246/255.0 blue:127/255.0 alpha:1],
+     [UIColor colorWithRed:204/255.0 green:255/255.0 blue:128/255.0 alpha:1],
+     [UIColor colorWithRed:255/255.0 green:157/255.0 blue:128/255.0 alpha:1],
+     [UIColor colorWithRed:198/255.0 green:128/255.0 blue:255/255.0 alpha:1],
+     [UIColor colorWithRed:127/255.0 green:255/255.0 blue:196/255.0 alpha:1],
+     [UIColor colorWithRed:255/255.0 green:232/255.0 blue:128/255.0 alpha:1],nil];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -37,7 +50,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    _friends = @[@"GW",@"MB",@"SS"];
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
+    self.edgesForExtendedLayout=UIRectEdgeNone;
+    _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
     NSLog(@"viewWillAppear");
     NSLog(@"friends: %i", [self.friends count]);
     [self.tableView reloadData];
@@ -58,25 +74,69 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.friends count];
+    return [self.friends count] + 1;
 }
 
+- (UITableViewCell *) cellForInviteMenuCell:(UITableView *)tableView
+{
+    BYMainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kBYInviteMenuCellIdentifier];
+    if (!cell) {
+        cell = [[BYMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBYInviteMenuCellIdentifier];
+    }
+    return cell;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"cellForRowAtIndexPath: %i",[indexPath row]);
+    if ([indexPath row] == [self.friends count]) {
+        return [self cellForInviteMenuCell:tableView];
+    }
     
     BYMainViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kBYMainViewCellIdentifier];
     if (!cell) {
         cell = [[BYMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBYMainViewCellIdentifier];
     }
     [cell initialsField].text = [self.friends objectAtIndex:[indexPath row]];
+    NSUInteger colorIndex = [indexPath row]%[_beckyColors count];
+    cell.contentView.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
+   // cell.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
+    
+    [cell.beckyButton addTarget:self
+            action:@selector(beckyButtonSelected:)
+  forControlEvents:UIControlEventTouchUpInside];
+    [cell.beckyButton setEnabled:true];
+    
+    [cell.bballButton addTarget:self
+                         action:@selector(ballButtonSelected:)
+               forControlEvents:UIControlEventTouchUpInside];
+    [cell.bballButton setEnabled:true];
+    
+    [cell.pizzaButton addTarget:self
+                         action:@selector(pizzaButtonSelected:)
+               forControlEvents:UIControlEventTouchUpInside];
+    [cell.pizzaButton setEnabled:true];
     
     return cell;
 }
 
+- (void) ballButtonSelected:(id)button
+{
+    NSLog(@"ball");
+}
+
+- (void) beckyButtonSelected:(id)button
+{
+    NSLog(@"becky");
+}
+
+- (void) pizzaButtonSelected:(id)button
+{
+    NSLog(@"pizza");
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return 110;
 }
 
 /*
