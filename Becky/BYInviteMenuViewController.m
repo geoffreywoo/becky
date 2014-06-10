@@ -55,11 +55,36 @@ ABAddressBookRef addressBook;
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width,110)];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, headerView.frame.size.width, headerView.frame.size.height)];
+    
+    headerView.backgroundColor = [UIColor colorWithRed:239/255.0 green:166/255.0 blue:229/255.0 alpha:1],
+    
+    //button.textAlignment = NSTextAlignmentCenter;
+    [button setTitle:@"+" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:80];
+    button.titleLabel.textColor = [UIColor whiteColor];
+
+    [button addTarget:self action:@selector(plusButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [button setEnabled:true];
+    [headerView addSubview:button];
+    return headerView;
+}
+
+-(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return  110.0;
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.edgesForExtendedLayout=UIRectEdgeNone;
-    self.inviteOptions = @[@"+",@"PHONEBOOK",@"SMS",@"EMAIL"];
+    self.inviteOptions = @[@"PHONEBOOK",@"SMS",@"EMAIL"];
     NSLog(@"viewWillAppear");
     [self.tableView reloadData];
 }
@@ -95,13 +120,7 @@ ABAddressBookRef addressBook;
     cell.contentView.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
     // cell.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
     
-    if ( [((NSString*)[self.inviteOptions objectAtIndex:[indexPath row]]) isEqualToString:@"+"]) {
-        [[cell inviteOptionButton] addTarget:self
-                             action:@selector(plusButtonSelected:)
-                   forControlEvents:UIControlEventTouchUpInside];
-        [[cell inviteOptionButton] setEnabled:true];
-        [cell inviteOptionButton].titleLabel.font = [UIFont systemFontOfSize:80];
-    } else if ( [((NSString*)[self.inviteOptions objectAtIndex:[indexPath row]]) isEqualToString:@"PHONEBOOK"]) {
+    if ( [((NSString*)[self.inviteOptions objectAtIndex:[indexPath row]]) isEqualToString:@"PHONEBOOK"]) {
         [[cell inviteOptionButton] addTarget:self
                                       action:@selector(phonebookButtonSelected:)
                             forControlEvents:UIControlEventTouchUpInside];
@@ -126,8 +145,9 @@ ABAddressBookRef addressBook;
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
-- (void)phonebooButtonSelected:(id)button
+- (void)phonebookButtonSelected:(id)button
 {
+    NSLog(@"phonebook button");
     __block BOOL accessGranted = NO;
     if (ABAddressBookRequestAccessWithCompletion != NULL) { // we're on iOS 6
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
@@ -188,10 +208,6 @@ ABAddressBookRef addressBook;
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)phonebookButtonSelected:(id)button
-{
 }
 
 - (void)emailButtonSelected:(id)button

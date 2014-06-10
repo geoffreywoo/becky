@@ -14,6 +14,14 @@
 
 @property (nonatomic, strong) NSArray *beckyColors;
 @property (nonatomic) float originalOrigin;
+@property (nonatomic) bool pooToggle;
+@property (nonatomic) bool pooTimeout;
+@property (nonatomic) double lastPooTimestamp;
+@property (nonatomic, strong) NSTimer *timer;
+//@property (nonatomic, strong) UIProgressView *pooProgressBar;
+@property (nonatomic, strong) UILabel *pooProgressTimeLabel;
+
+@property (nonatomic) double timeoutPeriod;
 
 @end
 
@@ -51,8 +59,46 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    
+    self.timeoutPeriod = 20;
 }
 
+-(void) tick:(NSTimer*)timer
+{
+    double currTime = [[NSDate date] timeIntervalSince1970];
+    double diffTime = currTime - self.lastPooTimestamp;
+    if ( diffTime > self.timeoutPeriod) {//60*60*24) {
+        self.pooTimeout = NO;
+//        self.pooProgressBar.hidden = YES;
+        self.pooProgressTimeLabel.hidden = YES;
+    } else {
+        self.pooTimeout = YES;
+ //       [self.pooProgressBar setProgress:(diffTime/self.timeoutPeriod)animated:YES];
+        [self.pooProgressTimeLabel setText:[self displayTimeWithSecond:(self.timeoutPeriod - diffTime)]];
+    }
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
+    self.edgesForExtendedLayout=UIRectEdgeNone;
+    _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
+    NSLog(@"viewWillAppear");
+    NSLog(@"friends: %i", [self.friends count]);
+    [self.tableView reloadData];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
+                                           selector:@selector(tick:) userInfo:nil repeats:YES];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.lastPooTimestamp = [[defaults objectForKey:@"lastPooTimestamp"] doubleValue];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self.timer invalidate];
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width,110)];
@@ -62,20 +108,63 @@
     headerView.backgroundColor = [UIColor colorWithRed:239/255.0 green:166/255.0 blue:229/255.0 alpha:1],
 
     headerLabel.textAlignment = NSTextAlignmentLeft;
-    headerLabel.font = [UIFont systemFontOfSize:70];
+    headerLabel.font = [UIFont boldSystemFontOfSize:70];
     headerLabel.textColor = [UIColor whiteColor];
     headerLabel.text = @"1210";
     [headerView addSubview:headerLabel];
     
-    self.pooToggleButton = [[UIButton alloc] initWithFrame:CGRectMake(200, 10, 100, 100)];
+    self.pooToggleButton = [[UIButton alloc] initWithFrame:CGRectMake(220, 0, 100, 100)];
     
     self.pooToggleButton.backgroundColor = [UIColor clearColor];
     [self.pooToggleButton setImage:[UIImage imageNamed:@"poo.png"] forState:UIControlStateNormal];
     [self.pooToggleButton addTarget:self action:@selector(pooToggleSelected:) forControlEvents:UIControlEventTouchDown];
     [headerView insertSubview:self.pooToggleButton aboveSubview:self.view];
+    /*
+    self.pooProgressBar = [[UIProgressView alloc] initWithFrame:CGRectMake(230,60,80,80)];
+    
+    UIImage *track = [[UIImage imageNamed:@"track"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *load = [[UIImage imageNamed:@"load"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    
+    [self.pooProgressBar setTrackImage:track];
+    [self.pooProgressBar setProgressImage:load];
+    
+    [headerView insertSubview:self.pooProgressBar aboveSubview:self.view];
+    */
+    double currTime = [[NSDate date] timeIntervalSince1970];
+    double diffTime = currTime - self.lastPooTimestamp;
+    
+    NSLog(@"%d",self.timeoutPeriod - diffTime);
+    
+    self.pooProgressTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(237,80,80,23)];
+    [self.pooProgressTimeLabel setText:[self displayTimeWithSecond:(self.timeoutPeriod - diffTime)]];
+    [self.pooProgressTimeLabel setTextColor: [UIColor whiteColor]];
+    
+    [headerView insertSubview:self.pooProgressTimeLabel aboveSubview:self.view];
+    
+    if ( diffTime > self.timeoutPeriod) {//60*60*24) {
+        self.pooTimeout = NO;
+ //       self.pooProgressBar.hidden = YES;
+        self.pooProgressTimeLabel.hidden = YES;
+    } else {
+        self.pooTimeout = YES;
+//        self.pooProgressBar.hidden = NO;
+        self.pooProgressTimeLabel.hidden = NO;
+    }
     
     return headerView;
+}
+
+- (NSString *)displayTimeWithSecond:(NSInteger)diffTimeSeconds
+{
+    NSInteger remindMinute = diffTimeSeconds / 60;
+    NSInteger remindHours = remindMinute / 60;
     
+    NSInteger remindMinutes = diffTimeSeconds - (remindHours * 3600);
+    NSInteger remindMinuteNew = remindMinutes / 60;
+    
+    NSInteger remindSecond = diffTimeSeconds - (remindMinuteNew * 60) - (remindHours * 3600);
+    
+    return [NSString stringWithFormat:@"%02d:%02d:%02d",remindHours,remindMinuteNew, remindSecond];
 }
 
 -(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -83,13 +172,28 @@
     return  110.0;
 }
 
-bool pooToggle = false;
+- (void) setPooTimestamp {
+    double currTime = [[NSDate date] timeIntervalSince1970];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setDouble:currTime forKey:@"lastPooTimestamp"];
+    [defaults synchronize];
+    self.lastPooTimestamp = currTime;
+    [self pooToggleSelected:nil];
+    self.pooTimeout = YES;
+//    self.pooProgressBar.hidden = NO;
+    self.pooProgressTimeLabel.hidden = NO;
+    [self.pooProgressTimeLabel setText:[self displayTimeWithSecond:(self.timeoutPeriod)]];
+}
 
 - (void) pooToggleSelected:(UIButton *)button
 {
-    pooToggle = !pooToggle;
-    NSLog(@"poo toggle selected");
-    [self checkPooToggleState];
+    if (self.pooTimeout) {//
+        
+    } else {
+        self.pooToggle = !self.pooToggle;
+        NSLog(@"poo toggle selected");
+        [self checkPooToggleState];
+    }
 }
 
 - (void) checkPooToggleState
@@ -99,37 +203,12 @@ bool pooToggle = false;
     {
         for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]-1; ++i)
         {
-            NSLog(@"for row: %d", i);
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).beckyButton.hidden = pooToggle;
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).bballButton.hidden = pooToggle;
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pizzaButton.hidden = pooToggle;
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pooButton.hidden = !pooToggle;
+            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).beckyButton.hidden = self.pooToggle;
+            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).bballButton.hidden = self.pooToggle;
+            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pizzaButton.hidden = self.pooToggle;
+            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pooButton.hidden = !self.pooToggle;
         }
     }
-    
-    NSLog(@"checkPooToggleState");
-    for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j)
-    {
-        for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]-1; ++i)
-        {
-            NSLog(@"for row: %d", i);
-            NSLog(@"becky: %d",((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).beckyButton.hidden);
-            NSLog(@"bball: %d",((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).bballButton.hidden);
-            NSLog(@"pizza: %d",((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pizzaButton.hidden);
-            NSLog(@"poo: %d",((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pooButton.hidden);
-        }
-    }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
-    self.edgesForExtendedLayout=UIRectEdgeNone;
-    _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
-    NSLog(@"viewWillAppear");
-    NSLog(@"friends: %i", [self.friends count]);
-    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -186,35 +265,34 @@ bool pooToggle = false;
     [cell initialsField].text = [self.friends objectAtIndex:[indexPath row]];
     NSUInteger colorIndex = [indexPath row]%[_beckyColors count];
     cell.contentView.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
-   // cell.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
     
     [cell.beckyButton addTarget:self
             action:@selector(beckyButtonSelected:)
   forControlEvents:UIControlEventTouchUpInside];
     [cell.beckyButton setEnabled:true];
     cell.beckyButton.tag=[indexPath row];
-    if (pooToggle) cell.beckyButton.hidden = YES;
+    cell.beckyButton.hidden = self.pooToggle;
     
     [cell.bballButton addTarget:self
                          action:@selector(ballButtonSelected:)
                forControlEvents:UIControlEventTouchUpInside];
     [cell.bballButton setEnabled:true];
     cell.bballButton.tag=[indexPath row];
-    if (pooToggle) cell.bballButton.hidden = YES;
+    cell.bballButton.hidden = self.pooToggle;
     
     [cell.pizzaButton addTarget:self
                          action:@selector(pizzaButtonSelected:)
                forControlEvents:UIControlEventTouchUpInside];
     [cell.pizzaButton setEnabled:true];
     cell.pizzaButton.tag=[indexPath row];
-    if (pooToggle) cell.pizzaButton.hidden = YES;
+    cell.pizzaButton.hidden = self.pooToggle;
     
     [cell.pooButton addTarget:self
                          action:@selector(pooButtonSelected:)
                forControlEvents:UIControlEventTouchUpInside];
     [cell.pooButton setEnabled:true];
     cell.pooButton.tag=[indexPath row];
-    if (pooToggle) cell.pooButton.hidden = NO;
+    cell.pooButton.hidden = !self.pooToggle;
     
     return cell;
 }
@@ -285,6 +363,7 @@ bool pooToggle = false;
 {
     NSLog(@"poo %d",button.tag);
     [self emojiSent:button];
+    [self setPooTimestamp];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
