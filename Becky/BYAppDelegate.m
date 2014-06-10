@@ -9,8 +9,45 @@
 #import <Parse/Parse.h>
 #import "BYAppDelegate.h"
 
+//@interface BYAppDelegate () <UIViewControllerAnimatedTransitioning>
+//@end
+
 @implementation BYAppDelegate
 
+/*
+-(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
+    return 0.4;
+}
+
+-(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    // boilerplate
+    UIViewController* vc1 =
+    [transitionContext
+     viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController* vc2 =
+    [transitionContext
+     viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIView* con = [transitionContext containerView];
+    CGRect r1start = [transitionContext initialFrameForViewController:vc1];
+    CGRect r2end = [transitionContext finalFrameForViewController:vc2];
+    UIView* v1 = vc1.view;
+    UIView* v2 = vc2.view;
+    // end boilerplate
+    
+    CGRect r = r2end;
+    r.origin.y += r.size.height; // start at the bottom...
+    v2.frame = r;
+    [con addSubview:v2];
+    
+    [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+    [UIView animateWithDuration:0.4 animations:^{
+        v2.frame = r2end; // ... and move up into place
+    } completion:^(BOOL finished) {
+        [transitionContext completeTransition:YES];
+        [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+    }];
+}
+*/
 - (void)application:(UIApplication *)application didChangeStatusBarFrame:(CGRect)oldStatusBarFrame
 {
     [application setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];

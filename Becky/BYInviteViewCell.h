@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString * const kBYInviteCellIdentifier;
+
 @interface BYInviteViewCell : UITableViewCell
+
+@property (nonatomic, strong) IBOutlet UIButton *inviteOptionButton;
 
 @end

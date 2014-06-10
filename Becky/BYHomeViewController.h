@@ -11,5 +11,6 @@
 @interface BYHomeViewController : UITableViewController
 
 @property (nonatomic, strong) NSArray *friends;
+@property (nonatomic, strong) IBOutlet UIButton *pooToggleButton;
 
 @end

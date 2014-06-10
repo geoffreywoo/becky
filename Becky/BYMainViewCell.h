@@ -15,6 +15,7 @@ extern NSString * const kBYMainViewCellIdentifier;
 @property (nonatomic, strong) IBOutlet UIButton *beckyButton;
 @property (nonatomic, strong) IBOutlet UIButton *bballButton;
 @property (nonatomic, strong) IBOutlet UIButton *pizzaButton;
+@property (nonatomic, strong) IBOutlet UIButton *pooButton;
 @property (nonatomic, strong) IBOutlet UITextView *initialsField;
 
 @end

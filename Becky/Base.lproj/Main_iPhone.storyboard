@@ -230,16 +230,17 @@
         <scene sceneID="bgf-p9-S2m">
             <objects>
                 <tableViewController id="Eis-nd-Mho" customClass="BYHomeViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="110" sectionHeaderHeight="1" sectionFooterHeight="1" id="6bN-Ii-3lI">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="6bN-Ii-3lI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="BYMainViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="BYMainViewCell" rowHeight="110" id="hdx-Jv-ABx" customClass="BYMainViewCell">
-                                <rect key="frame" x="0.0" y="45" width="320" height="110"/>
+                                <rect key="frame" x="0.0" y="66" width="320" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hdx-Jv-ABx" id="f78-lm-nBY">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhb-Sk-JAV">
@@ -270,6 +271,13 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGN-da-Aaa">
+                                            <rect key="frame" x="195" y="20" width="64" height="64"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="poo.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
@@ -278,18 +286,34 @@
                                     <outlet property="beckyButton" destination="06b-gZ-IeJ" id="gdq-HX-SAv"/>
                                     <outlet property="initialsField" destination="pAX-Nz-rsE" id="9d4-rS-vrm"/>
                                     <outlet property="pizzaButton" destination="zhb-Sk-JAV" id="W2P-p3-HzA"/>
+                                    <outlet property="pooButton" destination="wGN-da-Aaa" id="Sk0-pG-ABW"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" restorationIdentifier="BYInviteMenuViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="BYInviteMenuViewCell" rowHeight="110" id="3Zf-gA-ala" customClass="BYInviteMenuViewCell">
-                                <rect key="frame" x="0.0" y="155" width="320" height="110"/>
+                                <rect key="frame" x="0.0" y="176" width="320" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Zf-gA-ala" id="cmH-nK-7Yn">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vae-Cf-isi">
+                                            <rect key="frame" x="0.0" y="-1" width="320" height="110"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                                            <state key="normal" title="+">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="hQo-gR-JcB" kind="push" id="XwY-8F-tfo"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="Eis-nd-Mho" id="AIs-Wg-nmg"/>
                             <outlet property="delegate" destination="Eis-nd-Mho" id="dX4-wi-7Hl"/>
@@ -301,11 +325,56 @@
             </objects>
             <point key="canvasLocation" x="1871" y="138"/>
         </scene>
+        <!--Invite Menu View Controller-->
+        <scene sceneID="KSj-bi-BcL">
+            <objects>
+                <tableViewController id="hQo-gR-JcB" customClass="BYInviteMenuViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Bsr-vj-yQY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="BYInviteViewCell" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BYInviteViewCell" rowHeight="110" id="IU8-fX-FHE" customClass="BYInviteViewCell">
+                                <rect key="frame" x="0.0" y="66" width="320" height="110"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IU8-fX-FHE" id="c3e-Em-gfb">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQm-2Q-Xyf">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                            <state key="normal" title="+">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="inviteOptionButton" destination="CQm-2Q-Xyf" id="T2e-xl-qhd"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hQo-gR-JcB" id="QjY-RZ-jJy"/>
+                            <outlet property="delegate" destination="hQo-gR-JcB" id="ojk-Zo-DtC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="olH-zV-YPi"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V7f-Hz-88T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2283" y="136"/>
+        </scene>
     </scenes>
     <resources>
         <image name="basketball.png" width="64" height="64"/>
         <image name="becky.png" width="160" height="160"/>
         <image name="pizza.png" width="64" height="64"/>
+        <image name="poo.png" width="64" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

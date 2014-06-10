@@ -8,6 +8,8 @@
 
 #import "BYInviteViewCell.h"
 
+NSString * const kBYInviteCellIdentifier = @"BYInviteViewCell";
+
 @implementation BYInviteViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

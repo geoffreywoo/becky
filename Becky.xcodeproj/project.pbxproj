@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		60BA5C6A1944008F008197CB /* BYInviteMenuViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */; };
 		60BA5C6D194400A0008197CB /* BYInviteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C6C194400A0008197CB /* BYInviteViewCell.m */; };
+		60BA5C701946579F008197CB /* BYInviteMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C6F1946579F008197CB /* BYInviteMenuViewController.m */; };
+		60BA5C7219466370008197CB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BA5C7119466370008197CB /* MessageUI.framework */; };
+		60BA5C7419466871008197CB /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C7319466871008197CB /* food@2x.png */; };
 		60D6DBCD193FD8440015D890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBCC193FD8440015D890 /* Foundation.framework */; };
 		60D6DBCF193FD8440015D890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBCE193FD8440015D890 /* CoreGraphics.framework */; };
 		60D6DBD1193FD8440015D890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBD0193FD8440015D890 /* UIKit.framework */; };
@@ -62,6 +65,10 @@
 		60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteMenuViewCell.m; sourceTree = "<group>"; };
 		60BA5C6B194400A0008197CB /* BYInviteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteViewCell.h; sourceTree = "<group>"; };
 		60BA5C6C194400A0008197CB /* BYInviteViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteViewCell.m; sourceTree = "<group>"; };
+		60BA5C6E1946579F008197CB /* BYInviteMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteMenuViewController.h; sourceTree = "<group>"; };
+		60BA5C6F1946579F008197CB /* BYInviteMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteMenuViewController.m; sourceTree = "<group>"; };
+		60BA5C7119466370008197CB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		60BA5C7319466871008197CB /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
 		60D6DBC9193FD8440015D890 /* Becky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Becky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60D6DBCC193FD8440015D890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60D6DBCE193FD8440015D890 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -115,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60BA5C7219466370008197CB /* MessageUI.framework in Frameworks */,
 				60D6DC2E19402D7C0015D890 /* AddressBookUI.framework in Frameworks */,
 				60D6DC2C19402D770015D890 /* AddressBook.framework in Frameworks */,
 				60D6DC1F193FE55C0015D890 /* SystemConfiguration.framework in Frameworks */,
@@ -146,6 +154,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		60BA5C76194696B1008197CB /* Invite */ = {
+			isa = PBXGroup;
+			children = (
+				60BA5C6F1946579F008197CB /* BYInviteMenuViewController.m */,
+				60BA5C6B194400A0008197CB /* BYInviteViewCell.h */,
+				60BA5C6C194400A0008197CB /* BYInviteViewCell.m */,
+				60BA5C6E1946579F008197CB /* BYInviteMenuViewController.h */,
+			);
+			name = Invite;
+			sourceTree = "<group>";
+		};
 		60D6DBC0193FD8440015D890 = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +188,7 @@
 		60D6DBCB193FD8440015D890 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60BA5C7119466370008197CB /* MessageUI.framework */,
 				60D6DC2D19402D7C0015D890 /* AddressBookUI.framework */,
 				60D6DC2B19402D770015D890 /* AddressBook.framework */,
 				60D6DC1E193FE55C0015D890 /* SystemConfiguration.framework */,
@@ -191,6 +211,7 @@
 		60D6DBD2193FD8440015D890 /* Becky */ = {
 			isa = PBXGroup;
 			children = (
+				60BA5C7319466871008197CB /* food@2x.png */,
 				60D6DBDB193FD8450015D890 /* BYAppDelegate.h */,
 				60D6DBDC193FD8450015D890 /* BYAppDelegate.m */,
 				60D6DBDE193FD8450015D890 /* Main_iPhone.storyboard */,
@@ -199,10 +220,9 @@
 				60D6DC33194036A60015D890 /* BYHomeViewController.m */,
 				60D6DC3B194038EB0015D890 /* BYMainViewCell.h */,
 				60D6DC3C194038EB0015D890 /* BYMainViewCell.m */,
-				60BA5C6B194400A0008197CB /* BYInviteViewCell.h */,
-				60BA5C6C194400A0008197CB /* BYInviteViewCell.m */,
 				60BA5C681944008F008197CB /* BYInviteMenuViewCell.h */,
 				60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */,
+				60BA5C76194696B1008197CB /* Invite */,
 				60D6DC24194006960015D890 /* Login */,
 				60D6DBE7193FD8450015D890 /* Images.xcassets */,
 				60D6DC39194037B30015D890 /* poo.png */,
@@ -337,6 +357,7 @@
 			files = (
 				60D6DC3A194037B30015D890 /* poo.png in Resources */,
 				60D6DBE3193FD8450015D890 /* Main_iPad.storyboard in Resources */,
+				60BA5C7419466871008197CB /* food@2x.png in Resources */,
 				60D6DBE8193FD8450015D890 /* Images.xcassets in Resources */,
 				60D6DC38194037AD0015D890 /* pizza.png in Resources */,
 				60D6DC07193FDA0B0015D890 /* becky.png in Resources */,
@@ -365,6 +386,7 @@
 				60D6DBE6193FD8450015D890 /* BYViewController.m in Sources */,
 				60BA5C6D194400A0008197CB /* BYInviteViewCell.m in Sources */,
 				60D6DBD9193FD8450015D890 /* main.m in Sources */,
+				60BA5C701946579F008197CB /* BYInviteMenuViewController.m in Sources */,
 				60D6DBDD193FD8450015D890 /* BYAppDelegate.m in Sources */,
 				60D6DC34194036A60015D890 /* BYHomeViewController.m in Sources */,
 				60D6DC22193FF9B50015D890 /* VerifyYourNumberViewController.m in Sources */,
