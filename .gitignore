@@ -2,3 +2,5 @@ Parse.framework/
 Becky.xcodeproj/project.xcworkspace/xcuserdata/*
 .DS_Store
 Becky.xcodeproj/xcuserdata/*
+Becky.xcodeproj/project.pbxproj
+Becky.xcodeproj/project.xcworkspace/xcshareddata/

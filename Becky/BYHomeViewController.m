@@ -72,6 +72,7 @@
         self.pooTimeout = NO;
 //        self.pooProgressBar.hidden = YES;
         self.pooProgressTimeLabel.hidden = YES;
+        self.pooToggleButton.enabled = YES;
     } else {
         self.pooTimeout = YES;
  //       [self.pooProgressBar setProgress:(diffTime/self.timeoutPeriod)animated:YES];
@@ -117,6 +118,7 @@
     
     self.pooToggleButton.backgroundColor = [UIColor clearColor];
     [self.pooToggleButton setImage:[UIImage imageNamed:@"poo.png"] forState:UIControlStateNormal];
+    [self.pooToggleButton setImage:[UIImage imageNamed:@"poo_dark.png"] forState:UIControlStateDisabled];
     [self.pooToggleButton addTarget:self action:@selector(pooToggleSelected:) forControlEvents:UIControlEventTouchDown];
     [headerView insertSubview:self.pooToggleButton aboveSubview:self.view];
     /*
@@ -145,10 +147,12 @@
         self.pooTimeout = NO;
  //       self.pooProgressBar.hidden = YES;
         self.pooProgressTimeLabel.hidden = YES;
+        self.pooToggleButton.enabled = YES;
     } else {
         self.pooTimeout = YES;
 //        self.pooProgressBar.hidden = NO;
         self.pooProgressTimeLabel.hidden = NO;
+        self.pooToggleButton.enabled = NO;
     }
     
     return headerView;
@@ -182,6 +186,7 @@
     self.pooTimeout = YES;
 //    self.pooProgressBar.hidden = NO;
     self.pooProgressTimeLabel.hidden = NO;
+    self.pooToggleButton.enabled = NO;
     [self.pooProgressTimeLabel setText:[self displayTimeWithSecond:(self.timeoutPeriod)]];
 }
 
@@ -268,7 +273,7 @@
     
     [cell.beckyButton addTarget:self
             action:@selector(beckyButtonSelected:)
-  forControlEvents:UIControlEventTouchUpInside];
+               forControlEvents:UIControlEventTouchUpInside];
     [cell.beckyButton setEnabled:true];
     cell.beckyButton.tag=[indexPath row];
     cell.beckyButton.hidden = self.pooToggle;

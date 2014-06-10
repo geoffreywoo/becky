@@ -14,6 +14,10 @@
 		60BA5C7419466871008197CB /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C7319466871008197CB /* food@2x.png */; };
 		60BA5C781946DAB4008197CB /* load.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C771946DAB4008197CB /* load.png */; };
 		60BA5C7A1946DAB8008197CB /* track.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C791946DAB8008197CB /* track.png */; };
+		60BA5C7C1946E697008197CB /* basketball_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C7B1946E697008197CB /* basketball_dark.png */; };
+		60BA5C7E1946E6C8008197CB /* pizza_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C7D1946E6C8008197CB /* pizza_dark.png */; };
+		60BA5C801946E6D7008197CB /* poo_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C7F1946E6D7008197CB /* poo_dark.png */; };
+		60BA5C821946E6E6008197CB /* becky_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C811946E6E6008197CB /* becky_dark.png */; };
 		60D6DBCD193FD8440015D890 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBCC193FD8440015D890 /* Foundation.framework */; };
 		60D6DBCF193FD8440015D890 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBCE193FD8440015D890 /* CoreGraphics.framework */; };
 		60D6DBD1193FD8440015D890 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DBD0193FD8440015D890 /* UIKit.framework */; };
@@ -73,6 +77,10 @@
 		60BA5C7319466871008197CB /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
 		60BA5C771946DAB4008197CB /* load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load.png; sourceTree = "<group>"; };
 		60BA5C791946DAB8008197CB /* track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = track.png; sourceTree = "<group>"; };
+		60BA5C7B1946E697008197CB /* basketball_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basketball_dark.png; sourceTree = "<group>"; };
+		60BA5C7D1946E6C8008197CB /* pizza_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pizza_dark.png; sourceTree = "<group>"; };
+		60BA5C7F1946E6D7008197CB /* poo_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poo_dark.png; sourceTree = "<group>"; };
+		60BA5C811946E6E6008197CB /* becky_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = becky_dark.png; sourceTree = "<group>"; };
 		60D6DBC9193FD8440015D890 /* Becky.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Becky.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60D6DBCC193FD8440015D890 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60D6DBCE193FD8440015D890 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -232,9 +240,13 @@
 				60D6DC24194006960015D890 /* Login */,
 				60D6DBE7193FD8450015D890 /* Images.xcassets */,
 				60D6DC39194037B30015D890 /* poo.png */,
+				60BA5C7F1946E6D7008197CB /* poo_dark.png */,
 				60D6DC37194037AD0015D890 /* pizza.png */,
+				60BA5C7D1946E6C8008197CB /* pizza_dark.png */,
 				60D6DC35194037A60015D890 /* basketball.png */,
+				60BA5C7B1946E697008197CB /* basketball_dark.png */,
 				60D6DC06193FDA0B0015D890 /* becky.png */,
+				60BA5C811946E6E6008197CB /* becky_dark.png */,
 				60D6DBD3193FD8440015D890 /* Supporting Files */,
 			);
 			path = Becky;
@@ -369,9 +381,13 @@
 				60BA5C7A1946DAB8008197CB /* track.png in Resources */,
 				60D6DBE3193FD8450015D890 /* Main_iPad.storyboard in Resources */,
 				60BA5C7419466871008197CB /* food@2x.png in Resources */,
+				60BA5C7E1946E6C8008197CB /* pizza_dark.png in Resources */,
 				60D6DBE8193FD8450015D890 /* Images.xcassets in Resources */,
+				60BA5C821946E6E6008197CB /* becky_dark.png in Resources */,
 				60D6DC38194037AD0015D890 /* pizza.png in Resources */,
 				60D6DC07193FDA0B0015D890 /* becky.png in Resources */,
+				60BA5C7C1946E697008197CB /* basketball_dark.png in Resources */,
+				60BA5C801946E6D7008197CB /* poo_dark.png in Resources */,
 				60D6DBE0193FD8450015D890 /* Main_iPhone.storyboard in Resources */,
 				60D6DC36194037A60015D890 /* basketball.png in Resources */,
 				60D6DBD7193FD8450015D890 /* InfoPlist.strings in Resources */,

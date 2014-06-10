@@ -249,6 +249,8 @@
                                             <state key="normal" image="pizza.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="selected" image="pizza_dark.png"/>
+                                            <state key="highlighted" image="pizza_dark.png"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2rW-Et-phl">
                                             <rect key="frame" x="195" y="6" width="62" height="96"/>
@@ -256,6 +258,8 @@
                                             <state key="normal" image="basketball.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="selected" image="basketball_dark.png"/>
+                                            <state key="highlighted" image="basketball_dark.png"/>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="06b-gZ-IeJ">
                                             <rect key="frame" x="119" y="19" width="68" height="69"/>
@@ -263,6 +267,8 @@
                                             <state key="normal" image="becky.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="selected" image="becky_dark.png"/>
+                                            <state key="highlighted" image="becky_dark.png"/>
                                         </button>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="GW" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pAX-Nz-rsE">
                                             <rect key="frame" x="6" y="14" width="105" height="79"/>
@@ -277,6 +283,8 @@
                                             <state key="normal" image="poo.png">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <state key="selected" image="poo_dark.png"/>
+                                            <state key="highlighted" image="poo_dark.png"/>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
@@ -372,9 +380,13 @@
     </scenes>
     <resources>
         <image name="basketball.png" width="64" height="64"/>
+        <image name="basketball_dark.png" width="64" height="64"/>
         <image name="becky.png" width="160" height="160"/>
+        <image name="becky_dark.png" width="64" height="64"/>
         <image name="pizza.png" width="64" height="64"/>
+        <image name="pizza_dark.png" width="64" height="64"/>
         <image name="poo.png" width="64" height="64"/>
+        <image name="poo_dark.png" width="64" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
