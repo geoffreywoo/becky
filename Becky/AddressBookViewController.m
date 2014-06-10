@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <AFNetworking.h>
 #import "AddressBookViewController.h"
 #import <AddressBook/AddressBook.h>
 
@@ -84,15 +85,17 @@ ABAddressBookRef addressBook;
     
     NSLog(@"contacts: %@",contacts);
     
+    NSData *contactsData = [NSJSONSerialization dataWithJSONObject:contacts options:0 error:nil];
+    NSString *contactsJson = [[NSString alloc] initWithData:contactsData encoding:NSUTF8StringEncoding];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString* phone = (NSString*)[defaults objectForKey:@"phone"];
-    [PFCloud callFunctionInBackground:@"syncContacts"
-                       withParameters:@{@"phone": phone, @"contacts": contacts}
-                                block:^(NSString *response, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"%@", response);
-                                    }
-                                }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"phone": phone, @"contacts": contactsJson};
+    [manager POST:@"http://beckyapp.herokuapp.com/syncContacts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (NSMutableArray *) phoneNumbersForABPerson:(ABRecordRef) person

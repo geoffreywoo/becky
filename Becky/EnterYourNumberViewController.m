@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <AFNetworking.h>
 #import "EnterYourNumberViewController.h"
 #import "VerifyYourNumberViewController.h"
 
@@ -55,13 +56,13 @@
 - (IBAction)sendPhoneNumber {
     NSString *phone = self.phoneField.text;
     
-    [PFCloud callFunctionInBackground:@"signup"
-                       withParameters:@{@"phone": phone}
-                                block:^(NSString *response, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"%@", response);
-                                    }
-                                }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"phone": phone};
+    [manager POST:@"http://beckyapp.herokuapp.com/signup" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (void)didReceiveMemoryWarning

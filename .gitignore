@@ -4,3 +4,6 @@ Becky.xcodeproj/project.xcworkspace/xcuserdata/*
 Becky.xcodeproj/xcuserdata/*
 Becky.xcodeproj/project.pbxproj
 Becky.xcodeproj/project.xcworkspace/xcshareddata/
+Becky.xcworkspace/
+Podfile.lock
+Pods/

@@ -8,6 +8,7 @@
 
 #import <Parse/Parse.h>
 #import "BYViewController.h"
+#import "BYHomeViewController.h"
 
 @interface BYViewController ()
 
@@ -19,6 +20,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *phone = [defaults objectForKey:@"phone"];
+    
+    if (phone) {
+        BYHomeViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"BYHomeViewController"];
+        self.navigationController.viewControllers = @[controller];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -9,6 +9,7 @@
 #import "BYHomeViewController.h"
 #import "BYMainViewCell.h"
 #import "BYInviteMenuViewCell.h"
+#import <AFNetworking.h>
 
 @interface BYHomeViewController ()
 
@@ -40,6 +41,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBar.hidden = YES;
     
     _beckyColors = [[NSArray alloc] initWithObjects:
      [UIColor colorWithRed:255/255.0 green:127/255.0 blue:183/255.0 alpha:1],
@@ -84,6 +87,23 @@
 {
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.edgesForExtendedLayout=UIRectEdgeNone;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *phone = [defaults objectForKey:@"phone"];
+    self.lastPooTimestamp = [[defaults objectForKey:@"lastPooTimestamp"] doubleValue];
+    
+    NSDictionary *parameters = @{@"phone": phone};
+    [manager POST:@"http://beckyapp.herokuapp.com/getFriendList" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+
+    
+    
+    
     _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
     NSLog(@"viewWillAppear");
     NSLog(@"friends: %i", [self.friends count]);
@@ -92,8 +112,7 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                            selector:@selector(tick:) userInfo:nil repeats:YES];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.lastPooTimestamp = [[defaults objectForKey:@"lastPooTimestamp"] doubleValue];
+    
 }
 
 - (void) viewWillDisappear:(BOOL)animated
@@ -135,7 +154,7 @@
     double currTime = [[NSDate date] timeIntervalSince1970];
     double diffTime = currTime - self.lastPooTimestamp;
     
-    NSLog(@"%d",self.timeoutPeriod - diffTime);
+    //NSLog(@"%d",self.timeoutPeriod - diffTime);
     
     self.pooProgressTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(237,80,80,23)];
     [self.pooProgressTimeLabel setText:[self displayTimeWithSecond:(self.timeoutPeriod - diffTime)]];
@@ -267,7 +286,9 @@
         cell = [[BYMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBYMainViewCellIdentifier];
     }
     
-    [cell initialsField].text = [self.friends objectAtIndex:[indexPath row]];
+    [[cell initialsButton] setTitle:[self.friends objectAtIndex:[indexPath row]] forState:UIControlStateNormal];
+    [[cell initialsButton] addTarget:self action:@selector(initialsButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.beckyButton setEnabled:true];
     NSUInteger colorIndex = [indexPath row]%[_beckyColors count];
     cell.contentView.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
     

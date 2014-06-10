@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import <AFNetworking.h>
 #import "VerifyYourNumberViewController.h"
 
 @interface VerifyYourNumberViewController () <UITextFieldDelegate>
@@ -52,22 +53,56 @@
     NSString *phone = self.phone;
     NSLog(@"%@, %@",code,phone);
     
-    [PFCloud callFunctionInBackground:@"verify"
-                       withParameters:@{@"phone": phone, @"code": code}
-                                block:^(NSString *response, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"%@", response);
-                                
-                                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                                        [defaults setObject:phone forKey:@"phone"];
-                                        [defaults synchronize];
-                                        [self performSegueWithIdentifier:@"HomeViewSegue" sender:self];
-                                        
-                                    } else {
-                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Verification Failed" message:@"Retry your code, or re-enter your phone number!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-                                        [alert show];
-                                    }
-                                }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"phone": phone, @"code": code};
+    [manager POST:@"http://beckyapp.herokuapp.com/verify" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error];
+        
+        if (! jsonData) {
+            NSLog(@"Got an error: %@", error);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Verification Failed" message:@"Retry your code, or re-enter your phone number!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+            [alert show];
+        } else {
+            NSDictionary* json = [NSJSONSerialization
+                                  JSONObjectWithData:jsonData //1
+                                  
+                                  options:kNilOptions 
+                                  error:&error];
+            NSLog(@"canonical phone: %@",[json objectForKey:@"phone"]);
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[json objectForKey:@"phone"] forKey:@"phone"];
+            [defaults synchronize];
+            [self performSegueWithIdentifier:@"HomeViewSegue" sender:self];
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Verification Failed" message:@"Retry your code, or re-enter your phone number!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+        [alert show];
+    }];
+    
+//    [PFCloud callFunctionInBackground:@"verify"
+//                       withParameters:@{@"phone": phone, @"code": code}
+//                                block:^(NSString *response, NSError *error) {
+//                                    if (!error) {
+//                                        NSLog(@"%@", response);
+//                                
+//                                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//                                        [defaults setObject:phone forKey:@"phone"];
+//                                        [defaults synchronize];
+//                                        [self performSegueWithIdentifier:@"HomeViewSegue" sender:self];
+//                                        
+//                                    } else {
+//                                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Verification Failed" message:@"Retry your code, or re-enter your phone number!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+//                                        [alert show];
+//                                    }
+//                                }];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

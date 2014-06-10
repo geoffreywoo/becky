@@ -35,7 +35,6 @@
 		60D6DBFB193FD8450015D890 /* BeckyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6DBFA193FD8450015D890 /* BeckyTests.m */; };
 		60D6DC07193FDA0B0015D890 /* becky.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D6DC06193FDA0B0015D890 /* becky.png */; };
 		60D6DC0A193FDADF0015D890 /* EnterYourNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6DC09193FDADF0015D890 /* EnterYourNumberViewController.m */; };
-		60D6DC0D193FE47F0015D890 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DC0C193FE47F0015D890 /* Parse.framework */; };
 		60D6DC0F193FE5110015D890 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DC0E193FE5110015D890 /* AudioToolbox.framework */; };
 		60D6DC11193FE51B0015D890 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DC10193FE51B0015D890 /* CFNetwork.framework */; };
 		60D6DC13193FE5290015D890 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D6DC12193FE5290015D890 /* CoreLocation.framework */; };
@@ -54,6 +53,7 @@
 		60D6DC38194037AD0015D890 /* pizza.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D6DC37194037AD0015D890 /* pizza.png */; };
 		60D6DC3A194037B30015D890 /* poo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D6DC39194037B30015D890 /* poo.png */; };
 		60D6DC3D194038EB0015D890 /* BYMainViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6DC3C194038EB0015D890 /* BYMainViewCell.m */; };
+		B52DD6DAF14B4D5298812527 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BCBE7E17974A82AB52DDCD /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		46BCBE7E17974A82AB52DDCD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		60BA5C681944008F008197CB /* BYInviteMenuViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteMenuViewCell.h; sourceTree = "<group>"; };
 		60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteMenuViewCell.m; sourceTree = "<group>"; };
 		60BA5C6B194400A0008197CB /* BYInviteViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteViewCell.h; sourceTree = "<group>"; };
@@ -104,7 +105,6 @@
 		60D6DC06193FDA0B0015D890 /* becky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = becky.png; sourceTree = "<group>"; };
 		60D6DC08193FDADF0015D890 /* EnterYourNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterYourNumberViewController.h; sourceTree = "<group>"; };
 		60D6DC09193FDADF0015D890 /* EnterYourNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterYourNumberViewController.m; sourceTree = "<group>"; };
-		60D6DC0C193FE47F0015D890 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		60D6DC0E193FE5110015D890 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		60D6DC10193FE51B0015D890 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		60D6DC12193FE5290015D890 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -127,6 +127,7 @@
 		60D6DC39194037B30015D890 /* poo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poo.png; sourceTree = "<group>"; };
 		60D6DC3B194038EB0015D890 /* BYMainViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMainViewCell.h; sourceTree = "<group>"; };
 		60D6DC3C194038EB0015D890 /* BYMainViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMainViewCell.m; sourceTree = "<group>"; };
+		A913261D63874447A4B443D7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,8 +149,8 @@
 				60D6DC11193FE51B0015D890 /* CFNetwork.framework in Frameworks */,
 				60D6DC0F193FE5110015D890 /* AudioToolbox.framework in Frameworks */,
 				60D6DBD1193FD8440015D890 /* UIKit.framework in Frameworks */,
-				60D6DC0D193FE47F0015D890 /* Parse.framework in Frameworks */,
 				60D6DBCD193FD8440015D890 /* Foundation.framework in Frameworks */,
+				B52DD6DAF14B4D5298812527 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,11 +181,11 @@
 		60D6DBC0193FD8440015D890 = {
 			isa = PBXGroup;
 			children = (
-				60D6DC0C193FE47F0015D890 /* Parse.framework */,
 				60D6DBD2193FD8440015D890 /* Becky */,
 				60D6DBF4193FD8450015D890 /* BeckyTests */,
 				60D6DBCB193FD8440015D890 /* Frameworks */,
 				60D6DBCA193FD8440015D890 /* Products */,
+				A913261D63874447A4B443D7 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +217,7 @@
 				60D6DBCE193FD8440015D890 /* CoreGraphics.framework */,
 				60D6DBD0193FD8440015D890 /* UIKit.framework */,
 				60D6DBEE193FD8450015D890 /* XCTest.framework */,
+				46BCBE7E17974A82AB52DDCD /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -303,9 +305,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60D6DBFE193FD8450015D890 /* Build configuration list for PBXNativeTarget "Becky" */;
 			buildPhases = (
+				51DA35544C0F4363975257FF /* Check Pods Manifest.lock */,
 				60D6DBC5193FD8440015D890 /* Sources */,
 				60D6DBC6193FD8440015D890 /* Frameworks */,
 				60D6DBC7193FD8440015D890 /* Resources */,
+				ABE251BDE77F476F9C89397B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -403,6 +407,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		51DA35544C0F4363975257FF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ABE251BDE77F476F9C89397B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		60D6DBC5193FD8440015D890 /* Sources */ = {
@@ -551,6 +588,7 @@
 		};
 		60D6DBFF193FD8450015D890 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A913261D63874447A4B443D7 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -569,6 +607,7 @@
 		};
 		60D6DC00193FD8450015D890 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A913261D63874447A4B443D7 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
