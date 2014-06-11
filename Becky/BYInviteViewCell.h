@@ -13,5 +13,7 @@ extern NSString * const kBYInviteCellIdentifier;
 @interface BYInviteViewCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UIButton *inviteOptionButton;
+@property (nonatomic, strong) IBOutlet UILabel *label;
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

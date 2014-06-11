@@ -10,4 +10,6 @@
 
 @interface AddressBookViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @end

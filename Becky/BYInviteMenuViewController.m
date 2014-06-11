@@ -11,6 +11,7 @@
 #import <MessageUI/MessageUI.h>
 #import <AddressBook/AddressBook.h>
 #import <Parse/Parse.h>
+#import <AFNetworking.h>
 
 @interface BYInviteMenuViewController () <MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
@@ -125,19 +126,39 @@ ABAddressBookRef addressBook;
                                       action:@selector(phonebookButtonSelected:)
                             forControlEvents:UIControlEventTouchUpInside];
         [[cell inviteOptionButton] setEnabled:true];
+        [cell inviteOptionButton].tag = [indexPath row];
     } else if ( [((NSString*)[self.inviteOptions objectAtIndex:[indexPath row]]) isEqualToString:@"SMS"]) {
         [[cell inviteOptionButton] addTarget:self
                                       action:@selector(smsButtonSelected:)
                             forControlEvents:UIControlEventTouchUpInside];
         [[cell inviteOptionButton] setEnabled:true];
+        [cell inviteOptionButton].tag = [indexPath row];
     } else if ( [((NSString*)[self.inviteOptions objectAtIndex:[indexPath row]]) isEqualToString:@"EMAIL"]) {
         [[cell inviteOptionButton] addTarget:self
                                       action:@selector(emailButtonSelected:)
                             forControlEvents:UIControlEventTouchUpInside];
         [[cell inviteOptionButton] setEnabled:true];
+        [cell inviteOptionButton].tag = [indexPath row];
     }
     
+    [cell label].hidden = YES;
+    [cell activityIndicator].hidden = YES;
+    
     return cell;
+}
+
+- (void) turnOffSpinners
+{
+    for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j)
+    {
+        for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i)
+        {
+            BYInviteViewCell *cell = (BYInviteViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]];
+            [[cell activityIndicator] startAnimating];
+            [cell activityIndicator].hidden = YES;
+            [cell inviteOptionButton].hidden = NO;
+        }
+    }
 }
 
 - (void)plusButtonSelected:(id)button
@@ -145,8 +166,13 @@ ABAddressBookRef addressBook;
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
-- (void)phonebookButtonSelected:(id)button
+- (void)phonebookButtonSelected:(UIButton*)button
 {
+    BYInviteViewCell *cell = (BYInviteViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
+    [[cell activityIndicator] startAnimating];
+    [cell activityIndicator].hidden = NO;
+    [cell inviteOptionButton].hidden = YES;
+    
     NSLog(@"phonebook button");
     __block BOOL accessGranted = NO;
     if (ABAddressBookRequestAccessWithCompletion != NULL) { // we're on iOS 6
@@ -164,16 +190,22 @@ ABAddressBookRef addressBook;
     if (accessGranted) {
         [self uploadAddressBook];
     } else {
+        [self turnOffSpinners];
     }
 }
 
-- (void)smsButtonSelected:(id)button
+- (void)smsButtonSelected:(UIButton*)button
 {
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
         return;
     }
+    
+    BYInviteViewCell *cell = (BYInviteViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
+    [[cell activityIndicator] startAnimating];
+    [cell activityIndicator].hidden = NO;
+    [cell inviteOptionButton].hidden = YES;
     
     NSArray *recipents = @[];
     NSString *message = [NSString stringWithFormat:@"I want to BECKY with you! Download here: LINK"];
@@ -189,6 +221,8 @@ ABAddressBookRef addressBook;
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
+    [self turnOffSpinners];
+    
     switch (result) {
         case MessageComposeResultCancelled:
             break;
@@ -210,13 +244,18 @@ ABAddressBookRef addressBook;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)emailButtonSelected:(id)button
+- (void)emailButtonSelected:(UIButton*)button
 {
     if(![MFMailComposeViewController canSendMail]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support EMAIL!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
         return;
     }
+    
+    BYInviteViewCell *cell = (BYInviteViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
+    [[cell activityIndicator] startAnimating];
+    [cell activityIndicator].hidden = NO;
+    [cell inviteOptionButton].hidden = YES;
     
     NSArray *recipents = @[];
     NSString *message = [NSString stringWithFormat:@"I want to BECKY with you! Download here: LINK"];
@@ -232,6 +271,7 @@ ABAddressBookRef addressBook;
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
+    [self turnOffSpinners];
     switch (result) {
         case MFMailComposeResultCancelled:
             break;
@@ -281,15 +321,22 @@ ABAddressBookRef addressBook;
     
     NSLog(@"contacts: %@",contacts);
     
+    NSData *contactsData = [NSJSONSerialization dataWithJSONObject:contacts options:0 error:nil];
+    NSString *contactsJson = [[NSString alloc] initWithData:contactsData encoding:NSUTF8StringEncoding];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString* phone = (NSString*)[defaults objectForKey:@"phone"];
-    [PFCloud callFunctionInBackground:@"syncContacts"
-                       withParameters:@{@"phone": phone, @"contacts": contacts, @"timestamp": unixTimestamp}
-                                block:^(NSString *response, NSError *error) {
-                                    if (!error) {
-                                        NSLog(@"%@", response);
-                                    }
-                                }];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"phone": phone, @"contacts": contactsJson};
+    [manager POST:@"http://beckyapp.herokuapp.com/syncContacts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        [self turnOffSpinners];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Phonebook Upload Failed." message:@"Try again!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+        [alert show];
+        [self turnOffSpinners];
+    }];
 }
 
 - (NSMutableArray *) phoneNumbersForABPerson:(ABRecordRef) person

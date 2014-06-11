@@ -214,11 +214,16 @@
                                     <segue destination="Eis-nd-Mho" kind="push" id="lSH-lS-2tc"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="pj2-lI-YkM">
+                                <rect key="frame" x="151" y="208" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="dnB-L7-i5D"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="pj2-lI-YkM" id="Aj8-k8-hYY"/>
                         <outlet property="continueButton" destination="a87-Hi-KYD" id="zsX-0u-x69"/>
                     </connections>
                 </viewController>
@@ -296,10 +301,15 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="70A-jg-gby">
+                                            <rect key="frame" x="208" y="36" width="37" height="37"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activity" destination="70A-jg-gby" id="Cy4-tC-acy"/>
                                     <outlet property="bballButton" destination="2rW-Et-phl" id="7zC-hj-u4U"/>
                                     <outlet property="beckyButton" destination="06b-gZ-IeJ" id="gdq-HX-SAv"/>
                                     <outlet property="initialsButton" destination="xww-jB-Ckl" id="IaJ-O8-DB6"/>
@@ -370,10 +380,23 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ddC-kq-7nK">
+                                            <rect key="frame" x="142" y="36" width="37" height="37"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKa-3A-smh">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="ddC-kq-7nK" id="PnO-68-WCe"/>
                                     <outlet property="inviteOptionButton" destination="CQm-2Q-Xyf" id="T2e-xl-qhd"/>
+                                    <outlet property="label" destination="UKa-3A-smh" id="hTk-sT-Yrr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

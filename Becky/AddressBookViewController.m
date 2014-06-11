@@ -51,9 +51,10 @@ ABAddressBookRef addressBook;
     
     if (accessGranted) {
         [self uploadAddressBook];
-        self.continueButton.hidden = NO;
+
     } else {
         self.continueButton.hidden = NO;
+        self.activityIndicator.hidden = YES;
     }
 }
 
@@ -93,8 +94,12 @@ ABAddressBookRef addressBook;
     NSDictionary *parameters = @{@"phone": phone, @"contacts": contactsJson};
     [manager POST:@"http://beckyapp.herokuapp.com/syncContacts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
+        self.continueButton.hidden = NO;
+        self.activityIndicator.hidden = YES;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Phonebook Upload Failed." message:@"Try again!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+        [alert show];
     }];
 }
 
