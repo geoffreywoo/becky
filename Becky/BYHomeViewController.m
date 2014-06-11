@@ -83,6 +83,13 @@
  //       [self.pooProgressBar setProgress:(diffTime/self.timeoutPeriod)animated:YES];
         [self.pooProgressTimeLabel setText:[self displayTimeWithSecond:(self.timeoutPeriod - diffTime)]];
     }
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *phone = [defaults objectForKey:@"phone"];
+    
+    if (((int)currTime % 2) == 0)
+        [self getScore:phone];
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -401,6 +408,7 @@
             ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).bballButton.tag = i;
             ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pizzaButton.tag = i;
             ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pooButton.tag = i;
+            [((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]) initialsButton].tag = i;
             NSUInteger colorIndex = i%[_beckyColors count];
             ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).contentView.backgroundColor=[_beckyColors objectAtIndex:colorIndex];
         }
