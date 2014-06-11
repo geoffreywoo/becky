@@ -38,14 +38,14 @@ ABAddressBookRef addressBook;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
+    self.continueButton.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"triangular_pink@2x.png"]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     // Do any additional setup after loading the view.
-    self.continueButton.hidden = YES;
-    self.navigationController.navigationBar.hidden = YES;
     __block BOOL accessGranted = NO;
     if (ABAddressBookRequestAccessWithCompletion != NULL) { // we're on iOS 6
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);

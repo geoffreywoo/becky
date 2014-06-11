@@ -43,6 +43,14 @@
     NSLog(@"viewWillAppear");
     self.navigationController.navigationBar.hidden = NO;
     self.goButton.hidden = YES;
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"triangular_pink@2x.png"]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.phoneField setTintColor:[UIColor whiteColor]];
+    [self.phoneField becomeFirstResponder];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -73,13 +81,13 @@
 
 - (void)textFieldDidChange:(UITextField*)textField
 {
-    NSLog(@"textFieldDidChange");
+    NSLog(@"textFieldDidChange: %d", textField.text.length);
     if (textField.text.length > 9) {
         self.goButton.hidden = NO;
-    } if (textField.text.length > 10) {
+    } else if (textField.text.length > 10) {
         [textField resignFirstResponder];
     } else {
-        
+        self.goButton.hidden = YES;
     }
 }
 

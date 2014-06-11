@@ -40,6 +40,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.goButton.hidden = YES;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"triangular_pink@2x.png"]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.verifyField setTintColor:[UIColor whiteColor]];
+    [self.verifyField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,7 +130,7 @@
         [textField resignFirstResponder];
         self.goButton.hidden = NO;
     } else {
-        
+        self.goButton.hidden = YES;
     }
 }
 

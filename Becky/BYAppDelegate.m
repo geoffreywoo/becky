@@ -73,8 +73,12 @@
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     [PFPush handlePush:userInfo];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPush" object:self];
+    NSString *alert = [[userInfo objectForKey:@"aps"] objectForKey:@"alert"];
+    if ([alert hasPrefix:@"From"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ScorePush" object:self];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FriendsPush" object:self];
+    }
 }
 
 - (void)application:(UIApplication *)application

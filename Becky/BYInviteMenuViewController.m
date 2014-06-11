@@ -65,7 +65,7 @@ ABAddressBookRef addressBook;
     headerView.backgroundColor = [UIColor colorWithRed:239/255.0 green:166/255.0 blue:229/255.0 alpha:1],
     
     //button.textAlignment = NSTextAlignmentCenter;
-    [button setTitle:@"-" forState:UIControlStateNormal];
+    [button setTitle:@"—" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:80];
     button.titleLabel.textColor = [UIColor whiteColor];
 

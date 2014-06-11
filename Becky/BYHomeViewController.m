@@ -93,8 +93,6 @@
     self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
     self.edgesForExtendedLayout=UIRectEdgeNone;
     
-
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *phone = [defaults objectForKey:@"phone"];
     
@@ -116,15 +114,21 @@
     
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserverForName:@"InAppPush"
+    [center addObserverForName:@"ScorePush"
                         object:nil
                          queue:nil
-                    usingBlock:^(NSNotification *notification)
-    {
-        NSLog(@"%@", notification.name);
-        [self getScore:phone];
-        [self getFriends:phone];
-    }];
+                    usingBlock:^(NSNotification *notification) {
+                        NSLog(@"%@", notification.name);
+                        [self getScore:phone];
+
+                    }];
+    [center addObserverForName:@"FriendsPush"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification) {
+                        NSLog(@"%@", notification.name);
+                        [self getFriends:phone];
+                    }];
     
 }
 

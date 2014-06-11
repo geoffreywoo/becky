@@ -28,6 +28,8 @@
         BYHomeViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"BYHomeViewController"];
         self.navigationController.viewControllers = @[controller];
     }
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"triangular_pink@2x.png"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

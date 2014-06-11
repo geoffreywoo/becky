@@ -55,6 +55,7 @@
 		60D6DC3A194037B30015D890 /* poo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60D6DC39194037B30015D890 /* poo.png */; };
 		60D6DC3D194038EB0015D890 /* BYMainViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6DC3C194038EB0015D890 /* BYMainViewCell.m */; };
 		60ED1B2719482EC400B95AD8 /* becky.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60ED1B2619482EC400B95AD8 /* becky.wav */; };
+		60ED1B2B19483C3000B95AD8 /* triangular_pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60ED1B2A19483C3000B95AD8 /* triangular_pink@2x.png */; };
 		B52DD6DAF14B4D5298812527 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BCBE7E17974A82AB52DDCD /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +133,7 @@
 		60D6DC3B194038EB0015D890 /* BYMainViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYMainViewCell.h; sourceTree = "<group>"; };
 		60D6DC3C194038EB0015D890 /* BYMainViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMainViewCell.m; sourceTree = "<group>"; };
 		60ED1B2619482EC400B95AD8 /* becky.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = becky.wav; sourceTree = "<group>"; };
+		60ED1B2A19483C3000B95AD8 /* triangular_pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangular_pink@2x.png"; sourceTree = "<group>"; };
 		A913261D63874447A4B443D7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -239,6 +241,7 @@
 		60D6DBD2193FD8440015D890 /* Becky */ = {
 			isa = PBXGroup;
 			children = (
+				60ED1B2A19483C3000B95AD8 /* triangular_pink@2x.png */,
 				60ED1B2619482EC400B95AD8 /* becky.wav */,
 				60BA5C791946DAB8008197CB /* track.png */,
 				60BA5C771946DAB4008197CB /* load.png */,
@@ -409,6 +412,7 @@
 				60D6DC07193FDA0B0015D890 /* becky.png in Resources */,
 				60BA5C7C1946E697008197CB /* basketball_dark.png in Resources */,
 				60BA5C801946E6D7008197CB /* poo_dark.png in Resources */,
+				60ED1B2B19483C3000B95AD8 /* triangular_pink@2x.png in Resources */,
 				60D6DBE0193FD8450015D890 /* Main_iPhone.storyboard in Resources */,
 				60D6DC36194037A60015D890 /* basketball.png in Resources */,
 				60D6DBD7193FD8450015D890 /* InfoPlist.strings in Resources */,
