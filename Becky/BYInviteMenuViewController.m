@@ -65,7 +65,7 @@ ABAddressBookRef addressBook;
     headerView.backgroundColor = [UIColor colorWithRed:239/255.0 green:166/255.0 blue:229/255.0 alpha:1],
     
     //button.textAlignment = NSTextAlignmentCenter;
-    [button setTitle:@"+" forState:UIControlStateNormal];
+    [button setTitle:@"-" forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:80];
     button.titleLabel.textColor = [UIColor whiteColor];
 
@@ -75,9 +75,9 @@ ABAddressBookRef addressBook;
     return headerView;
 }
 
--(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return  110.0;
+    return  114.0;
 }
 
 
@@ -157,6 +157,7 @@ ABAddressBookRef addressBook;
             [[cell activityIndicator] startAnimating];
             [cell activityIndicator].hidden = YES;
             [cell inviteOptionButton].hidden = NO;
+            [cell label].hidden = YES;
         }
     }
 }
@@ -170,8 +171,10 @@ ABAddressBookRef addressBook;
 {
     BYInviteViewCell *cell = (BYInviteViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
     [[cell activityIndicator] startAnimating];
-    [cell activityIndicator].hidden = NO;
+   // [cell activityIndicator].hidden = NO;
     [cell inviteOptionButton].hidden = YES;
+    [[cell label] setText:@"SYNCING..."];
+    [cell label].hidden = NO;
     
     NSLog(@"phonebook button");
     __block BOOL accessGranted = NO;
@@ -295,7 +298,7 @@ ABAddressBookRef addressBook;
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 110;
+    return 113;
 }
 
 - (void)uploadAddressBook {
@@ -330,7 +333,13 @@ ABAddressBookRef addressBook;
     [manager POST:@"http://beckyapp.herokuapp.com/syncContacts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [self turnOffSpinners];
+        NSString *friendsAdded = [responseObject objectForKey:@"friendsAdded"];
+        NSLog(@"%@",friendsAdded);
         
+        if ([friendsAdded intValue] > 0) {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Synced" message:[NSString stringWithFormat:@"%@ friends added!",friendsAdded] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Phonebook Upload Failed." message:@"Try again!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];

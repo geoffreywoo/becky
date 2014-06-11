@@ -11,6 +11,7 @@
 #import "BYInviteMenuViewCell.h"
 #import <AFNetworking.h>
 #import "BYFriend.h"
+#import <Parse/Parse.h>
 
 @interface BYHomeViewController ()
 
@@ -23,6 +24,7 @@
 //@property (nonatomic, strong) UIProgressView *pooProgressBar;
 @property (nonatomic, strong) UILabel *pooProgressTimeLabel;
 @property (nonatomic, strong) UILabel *headerLabel;
+@property (nonatomic, strong) NSString *score;
 
 @property (nonatomic) double timeoutPeriod;
 
@@ -67,6 +69,7 @@
 
     
     self.timeoutPeriod = 20;
+    self.score = @"???";
 }
 
 -(void) tick:(NSTimer*)timer
@@ -83,13 +86,6 @@
  //       [self.pooProgressBar setProgress:(diffTime/self.timeoutPeriod)animated:YES];
         [self.pooProgressTimeLabel setText:[self displayTimeWithSecond:(self.timeoutPeriod - diffTime)]];
     }
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *phone = [defaults objectForKey:@"phone"];
-    
-    if (((int)currTime % 2) == 0)
-        [self getScore:phone];
-    
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -109,6 +105,43 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                 selector:@selector(tick:) userInfo:nil repeats:YES];
     
+    [self getFriends:phone];
+    [self getScore:phone];
+    
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    NSString *channelName = [NSString stringWithFormat:@"a%@",phone];
+    [currentInstallation addUniqueObject:channelName forKey:@"channels"];
+    [currentInstallation saveInBackground];
+    
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserverForName:@"InAppPush"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+    {
+        NSLog(@"%@", notification.name);
+        [self getScore:phone];
+        [self getFriends:phone];
+    }];
+    
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver: self];
+    [self.timer invalidate];
+}
+
+- (void) getFriends:(NSString *)phone
+{
     
     NSDictionary *parameters = @{@"phone": phone};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -133,9 +166,9 @@
                 BYFriend *f = [[BYFriend alloc] initWithJSON:object];
                 [tempFriends addObject:f];
             }
-                       //  _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
+            //  _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
             _friends = [NSArray arrayWithArray:tempFriends];
-
+            
             NSLog(@"friends count: %i", [self.friends count]);
             NSLog(@"friends: %@", self.friends);
             [self.tableView reloadData];
@@ -143,9 +176,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
-    
-    
-    [self getScore:phone];
 }
 
 - (void) getScore:(NSString *)phone
@@ -168,10 +198,10 @@
                                   options:kNilOptions
                                   error:&error];
             NSLog(@"json: %@",json);
-            NSString *score = [[json objectForKey:@"score"] stringValue];
-            NSLog(@"score: %@",score);
+            self.score = [[json objectForKey:@"score"] stringValue];
+            NSLog(@"score: %@",self.score);
             
-            [self.headerLabel setText:score];
+            [self.headerLabel setText:self.score];
  
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -179,10 +209,6 @@
     }];
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [self.timer invalidate];
-}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,tableView.frame.size.width,110)];
@@ -194,7 +220,8 @@
     self.headerLabel.textAlignment = NSTextAlignmentLeft;
     self.headerLabel.font = [UIFont boldSystemFontOfSize:70];
     self.headerLabel.textColor = [UIColor whiteColor];
-    self.headerLabel.text = @"???";
+    [self.headerLabel setText:self.score];
+
     [headerView addSubview:self.headerLabel];
     
     self.pooToggleButton = [[UIButton alloc] initWithFrame:CGRectMake(220, 0, 100, 100)];
@@ -254,9 +281,9 @@
     return [NSString stringWithFormat:@"%02d:%02d:%02d",remindHours,remindMinuteNew, remindSecond];
 }
 
--(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return  110.0;
+    return  114.0;
 }
 
 - (void) setPooTimestamp {
@@ -570,7 +597,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 110;
+    return 113;
 }
 
 /*

@@ -33,6 +33,16 @@ ABAddressBookRef addressBook;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     // Do any additional setup after loading the view.
     self.continueButton.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
@@ -51,16 +61,11 @@ ABAddressBookRef addressBook;
     
     if (accessGranted) {
         [self uploadAddressBook];
-
+        
     } else {
         self.continueButton.hidden = NO;
         self.activityIndicator.hidden = YES;
     }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-
 }
 
 - (void)uploadAddressBook {

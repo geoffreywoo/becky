@@ -78,6 +78,11 @@
             [defaults setObject:[json objectForKey:@"phone"] forKey:@"phone"];
             [defaults synchronize];
             [self performSegueWithIdentifier:@"HomeViewSegue" sender:self];
+            
+            PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+            NSString *channelName = [NSString stringWithFormat:@"a%@",[json objectForKey:@"phone"]];
+            [currentInstallation addUniqueObject:channelName forKey:@"channels"];
+            [currentInstallation saveInBackground];
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
