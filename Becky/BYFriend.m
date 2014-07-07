@@ -11,13 +11,7 @@
 @implementation BYFriend
 
 
-- (id)initWithJSON:(NSDictionary *)dict
-{
-    self.firstName = [dict objectForKey:@"firstName"];
-    self.lastName = [dict objectForKey:@"lastName"];
-    self.phoneNumber = [dict objectForKey:@"phone"];
-    self.score = [[dict objectForKey:@"score"] intValue];
-    
+- (void) initializeInitials {
     if ([self.lastName isEqualToString:@""]) {
         if ([self.firstName isEqualToString:@""]) {
             self.initials = @"??";
@@ -33,9 +27,28 @@
             self.initials = [NSString stringWithFormat:@"%@%@",[self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
         }
     } else {
-         self.initials = [NSString stringWithFormat:@"%@%@",[self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
+        self.initials = [NSString stringWithFormat:@"%@%@",[self.firstName substringToIndex:1], [self.lastName substringToIndex:1]];
     }
+}
+
+- (id)initWithJSON:(NSDictionary *)dict
+{
+    self.firstName = [dict objectForKey:@"firstName"];
+    self.lastName = [dict objectForKey:@"lastName"];
+    self.phoneNumber = [dict objectForKey:@"phone"];
+    self.score = [[dict objectForKey:@"score"] intValue];
+    [self initializeInitials];
+
     return self;
+}
+
+- (void) update: (BYFriend*)tempFriend {
+    self.firstName = tempFriend.firstName;
+    self.lastName = tempFriend.lastName;
+    self.phoneNumber = tempFriend.phoneNumber;
+    self.score = tempFriend.score;
+    [self initializeInitials];
+    
 }
 
 @end

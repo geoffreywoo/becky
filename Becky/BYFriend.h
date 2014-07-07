@@ -17,5 +17,6 @@
 @property (nonatomic) int score;
 
 - (id)initWithJSON:(NSDictionary *)obj;
+- (void) update:(BYFriend*)tempFriend;
 
 @end

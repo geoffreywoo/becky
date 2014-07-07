@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UILabel *pooProgressTimeLabel;
 @property (nonatomic, strong) UILabel *headerLabel;
 @property (nonatomic, strong) NSString *score;
+@property (nonatomic, strong) NSString *phone;
 
 @property (nonatomic) double timeoutPeriod;
 
@@ -58,7 +59,7 @@
      [UIColor colorWithRed:127/255.0 green:255/255.0 blue:196/255.0 alpha:1],
      [UIColor colorWithRed:255/255.0 green:232/255.0 blue:128/255.0 alpha:1],nil];
     
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"food@2x.png"]];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"food_pink@2x.png"]];
     self.navigationController.viewControllers = @[self];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -68,6 +69,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     
+   // self.timeoutPeriod = 24*60*60;
     self.timeoutPeriod = 20;
     self.score = @"???";
 }
@@ -76,6 +78,9 @@
 {
     double currTime = [[NSDate date] timeIntervalSince1970];
     double diffTime = currTime - self.lastPooTimestamp;
+
+    if ((int)currTime%10 ==0) [self updateFriends:self.phone];
+    
     if ( diffTime > self.timeoutPeriod) {//60*60*24) {
         self.pooTimeout = NO;
 //        self.pooProgressBar.hidden = YES;
@@ -94,21 +99,20 @@
     self.edgesForExtendedLayout=UIRectEdgeNone;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *phone = [defaults objectForKey:@"phone"];
+    self.phone = [defaults objectForKey:@"phone"];
     
-    NSLog(@"phone on file: %@", phone);
+    NSLog(@"phone on file: %@", self.phone);
     
     self.lastPooTimestamp = [[defaults objectForKey:@"lastPooTimestamp"] doubleValue];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                                 selector:@selector(tick:) userInfo:nil repeats:YES];
     
-    [self getFriends:phone];
-    [self getScore:phone];
-    
+    [self getScore:self.phone];
+    [self getFriends:self.phone];
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    NSString *channelName = [NSString stringWithFormat:@"a%@",phone];
+    NSString *channelName = [NSString stringWithFormat:@"a%@",self.phone];
     [currentInstallation addUniqueObject:channelName forKey:@"channels"];
     [currentInstallation saveInBackground];
     
@@ -119,7 +123,7 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification) {
                         NSLog(@"%@", notification.name);
-                        [self getScore:phone];
+                        [self getScore:self.phone];
 
                     }];
     [center addObserverForName:@"FriendsPush"
@@ -127,7 +131,7 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification) {
                         NSLog(@"%@", notification.name);
-                        [self getFriends:phone];
+                        [self getFriends:self.phone];
                     }];
     
 }
@@ -143,6 +147,8 @@
     [center removeObserver: self];
     [self.timer invalidate];
 }
+
+
 
 - (void) getFriends:(NSString *)phone
 {
@@ -181,6 +187,59 @@
         NSLog(@"Error: %@", error);
     }];
 }
+
+- (BYFriend *) findFriend: (NSString *)phone {
+    for (BYFriend *f in self.friends) {
+        if ([phone isEqualToString:f.phoneNumber]) {
+            return f;
+        }
+    }
+    return nil;
+}
+
+- (void) updateFriends:(NSString *)phone
+{
+    
+    NSDictionary *parameters = @{@"phone": phone};
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager POST:@"http://beckyapp.herokuapp.com/getFriendList" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error];
+        
+        if (! jsonData) {
+            NSLog(@"Got an error: %@", error);
+        } else {
+            NSDictionary* json = [NSJSONSerialization
+                                  JSONObjectWithData:jsonData //1
+                                  
+                                  options:kNilOptions
+                                  error:&error];
+            NSArray *friendsArray = [json objectForKey:@"friendList"];
+            NSMutableArray *tempFriends = [NSMutableArray arrayWithArray:self.friends];
+            for (id object in friendsArray) {
+                BYFriend *tempFriend = [[BYFriend alloc] initWithJSON:object];
+                BYFriend *existingFriend = [self findFriend:tempFriend.phoneNumber];
+                if (existingFriend) {
+                    [existingFriend update:tempFriend];
+                } else {
+                    [tempFriends addObject:tempFriend];
+                }
+            }
+            //  _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
+            _friends = [NSArray arrayWithArray:tempFriends];
+            
+            NSLog(@"friends count: %i", [self.friends count]);
+            NSLog(@"friends: %@", self.friends);
+            [self.tableView reloadData];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
 
 - (void) getScore:(NSString *)phone
 {
@@ -282,7 +341,7 @@
     
     NSInteger remindSecond = diffTimeSeconds - (remindMinuteNew * 60) - (remindHours * 3600);
     
-    return [NSString stringWithFormat:@"%02d:%02d:%02d",remindHours,remindMinuteNew, remindSecond];
+    return [NSString stringWithFormat:@"%02d:%02d:%02d",remindHours,remindMinuteNew,remindSecond];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -543,11 +602,15 @@
     
     BYMainViewCell *cell = ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]]);
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *phone = [defaults objectForKey:@"phone"];
-    
     NSLog(@"friend #: %@",[friend phoneNumber]);
-    [self sentFrom:phone to:[friend phoneNumber] cell:cell withEmoji:@"🏀"];
+    [self sentFrom:self.phone to:[friend phoneNumber] cell:cell withEmoji:@"🏀"];
+    NSDictionary *dimensions = @{
+                                 // Define ranges to bucket data points into meaningful segments
+                                 @"from": self.phone,
+                                 // Did the user filter the query?
+                                 @"to": [friend phoneNumber]
+                                 };
+    [PFAnalytics trackEvent:@"ball" dimensions:dimensions];
 }
 
 - (void) beckyButtonSelected:(UIButton*)button
@@ -564,6 +627,13 @@
     
     NSLog(@"friend #: %@",[friend phoneNumber]);
     [self sentFrom:phone to:[friend phoneNumber] cell:cell withEmoji:@"🙆"];
+    NSDictionary *dimensions = @{
+                                 // Define ranges to bucket data points into meaningful segments
+                                 @"from": self.phone,
+                                 // Did the user filter the query?
+                                 @"to": [friend phoneNumber]
+                                 };
+    [PFAnalytics trackEvent:@"becky" dimensions:dimensions];
 
 }
 
@@ -581,6 +651,13 @@
     
     NSLog(@"friend #: %@",[friend phoneNumber]);
     [self sentFrom:phone to:[friend phoneNumber] cell:cell withEmoji:@"🍕"];
+    NSDictionary *dimensions = @{
+                                 // Define ranges to bucket data points into meaningful segments
+                                 @"from": self.phone,
+                                 // Did the user filter the query?
+                                 @"to": [friend phoneNumber]
+                                 };
+    [PFAnalytics trackEvent:@"pizza" dimensions:dimensions];
 }
 
 - (void) pooButtonSelected:(UIButton*)button
@@ -598,6 +675,13 @@
     
     NSLog(@"friend #: %@",[friend phoneNumber]);
     [self sentFrom:phone to:[friend phoneNumber] cell:cell withEmoji:@"💩"];
+    NSDictionary *dimensions = @{
+                                 // Define ranges to bucket data points into meaningful segments
+                                 @"from": self.phone,
+                                 // Did the user filter the query?
+                                 @"to": [friend phoneNumber]
+                                 };
+    [PFAnalytics trackEvent:@"poo" dimensions:dimensions];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

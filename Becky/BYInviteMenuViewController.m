@@ -47,7 +47,7 @@ ABAddressBookRef addressBook;
                     [UIColor colorWithRed:127/255.0 green:255/255.0 blue:196/255.0 alpha:1],
                     [UIColor colorWithRed:255/255.0 green:232/255.0 blue:128/255.0 alpha:1],nil];
     
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"food@2x.png"]];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"food_pink@2x.png"]];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -88,6 +88,9 @@ ABAddressBookRef addressBook;
     self.inviteOptions = @[@"PHONEBOOK",@"SMS",@"EMAIL"];
     NSLog(@"viewWillAppear");
     [self.tableView reloadData];
+    
+    NSDictionary *dimensions = @{};
+    [PFAnalytics trackEvent:@"inviteMenu" dimensions:dimensions];
 }
 
 - (void)didReceiveMemoryWarning
@@ -169,6 +172,9 @@ ABAddressBookRef addressBook;
 
 - (void)phonebookButtonSelected:(UIButton*)button
 {
+    NSDictionary *dimensions = @{};
+    [PFAnalytics trackEvent:@"phoneBookButton" dimensions:dimensions];
+    
     BYInviteViewCell *cell = (BYInviteViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]];
     [[cell activityIndicator] startAnimating];
    // [cell activityIndicator].hidden = NO;
@@ -199,6 +205,8 @@ ABAddressBookRef addressBook;
 
 - (void)smsButtonSelected:(UIButton*)button
 {
+    NSDictionary *dimensions = @{};
+    [PFAnalytics trackEvent:@"smsBookButton" dimensions:dimensions];
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
@@ -211,7 +219,7 @@ ABAddressBookRef addressBook;
     [cell inviteOptionButton].hidden = YES;
     
     NSArray *recipents = @[];
-    NSString *message = [NSString stringWithFormat:@"I want to BECKY with you! Download here: LINK"];
+    NSString *message = [NSString stringWithFormat:@"I want to BECKY with you! 🙆🙆🙆 Download here: https://t.co/Kr4Gsshrnw"];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
@@ -249,6 +257,8 @@ ABAddressBookRef addressBook;
 
 - (void)emailButtonSelected:(UIButton*)button
 {
+    NSDictionary *dimensions = @{};
+    [PFAnalytics trackEvent:@"emailBookButton" dimensions:dimensions];
     if(![MFMailComposeViewController canSendMail]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support EMAIL!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
@@ -261,7 +271,7 @@ ABAddressBookRef addressBook;
     [cell inviteOptionButton].hidden = YES;
     
     NSArray *recipents = @[];
-    NSString *message = [NSString stringWithFormat:@"I want to BECKY with you! Download here: LINK"];
+    NSString *message = [NSString stringWithFormat:@"I want to BECKY  with you! 🙆🙆🙆 Download here: https://itunes.apple.com/app/id888216914"];
     
     MFMailComposeViewController *messageController = [[MFMailComposeViewController alloc] init];
     messageController.mailComposeDelegate = self;

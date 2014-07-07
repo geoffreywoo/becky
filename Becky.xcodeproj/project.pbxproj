@@ -11,7 +11,6 @@
 		60BA5C6D194400A0008197CB /* BYInviteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C6C194400A0008197CB /* BYInviteViewCell.m */; };
 		60BA5C701946579F008197CB /* BYInviteMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C6F1946579F008197CB /* BYInviteMenuViewController.m */; };
 		60BA5C7219466370008197CB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60BA5C7119466370008197CB /* MessageUI.framework */; };
-		60BA5C7419466871008197CB /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C7319466871008197CB /* food@2x.png */; };
 		60BA5C781946DAB4008197CB /* load.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C771946DAB4008197CB /* load.png */; };
 		60BA5C7A1946DAB8008197CB /* track.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C791946DAB8008197CB /* track.png */; };
 		60BA5C7C1946E697008197CB /* basketball_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 60BA5C7B1946E697008197CB /* basketball_dark.png */; };
@@ -56,6 +55,7 @@
 		60D6DC3D194038EB0015D890 /* BYMainViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D6DC3C194038EB0015D890 /* BYMainViewCell.m */; };
 		60ED1B2719482EC400B95AD8 /* becky.wav in Resources */ = {isa = PBXBuildFile; fileRef = 60ED1B2619482EC400B95AD8 /* becky.wav */; };
 		60ED1B2B19483C3000B95AD8 /* triangular_pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60ED1B2A19483C3000B95AD8 /* triangular_pink@2x.png */; };
+		60ED1B2D1948498A00B95AD8 /* food_pink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 60ED1B2C1948498A00B95AD8 /* food_pink@2x.png */; };
 		B52DD6DAF14B4D5298812527 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46BCBE7E17974A82AB52DDCD /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -78,7 +78,6 @@
 		60BA5C6E1946579F008197CB /* BYInviteMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteMenuViewController.h; sourceTree = "<group>"; };
 		60BA5C6F1946579F008197CB /* BYInviteMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteMenuViewController.m; sourceTree = "<group>"; };
 		60BA5C7119466370008197CB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		60BA5C7319466871008197CB /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
 		60BA5C771946DAB4008197CB /* load.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = load.png; sourceTree = "<group>"; };
 		60BA5C791946DAB8008197CB /* track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = track.png; sourceTree = "<group>"; };
 		60BA5C7B1946E697008197CB /* basketball_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basketball_dark.png; sourceTree = "<group>"; };
@@ -134,6 +133,7 @@
 		60D6DC3C194038EB0015D890 /* BYMainViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYMainViewCell.m; sourceTree = "<group>"; };
 		60ED1B2619482EC400B95AD8 /* becky.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = becky.wav; sourceTree = "<group>"; };
 		60ED1B2A19483C3000B95AD8 /* triangular_pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangular_pink@2x.png"; sourceTree = "<group>"; };
+		60ED1B2C1948498A00B95AD8 /* food_pink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food_pink@2x.png"; sourceTree = "<group>"; };
 		A913261D63874447A4B443D7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,11 +241,11 @@
 		60D6DBD2193FD8440015D890 /* Becky */ = {
 			isa = PBXGroup;
 			children = (
+				60ED1B2C1948498A00B95AD8 /* food_pink@2x.png */,
 				60ED1B2A19483C3000B95AD8 /* triangular_pink@2x.png */,
 				60ED1B2619482EC400B95AD8 /* becky.wav */,
 				60BA5C791946DAB8008197CB /* track.png */,
 				60BA5C771946DAB4008197CB /* load.png */,
-				60BA5C7319466871008197CB /* food@2x.png */,
 				60D6DBDB193FD8450015D890 /* BYAppDelegate.h */,
 				60D6DBDC193FD8450015D890 /* BYAppDelegate.m */,
 				60D6DBDE193FD8450015D890 /* Main_iPhone.storyboard */,
@@ -404,11 +404,11 @@
 				60BA5C7A1946DAB8008197CB /* track.png in Resources */,
 				60ED1B2719482EC400B95AD8 /* becky.wav in Resources */,
 				60D6DBE3193FD8450015D890 /* Main_iPad.storyboard in Resources */,
-				60BA5C7419466871008197CB /* food@2x.png in Resources */,
 				60BA5C7E1946E6C8008197CB /* pizza_dark.png in Resources */,
 				60D6DBE8193FD8450015D890 /* Images.xcassets in Resources */,
 				60BA5C821946E6E6008197CB /* becky_dark.png in Resources */,
 				60D6DC38194037AD0015D890 /* pizza.png in Resources */,
+				60ED1B2D1948498A00B95AD8 /* food_pink@2x.png in Resources */,
 				60D6DC07193FDA0B0015D890 /* becky.png in Resources */,
 				60BA5C7C1946E697008197CB /* basketball_dark.png in Resources */,
 				60BA5C801946E6D7008197CB /* poo_dark.png in Resources */,
@@ -614,8 +614,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Woo (LEF3S99LJ5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SERRICE CORP (9492KYU2PD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -624,7 +624,8 @@
 				GCC_PREFIX_HEADER = "Becky/Becky-Prefix.pch";
 				INFOPLIST_FILE = "Becky/Becky-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2B6F470F-E22F-460B-848E-89F592F296C4";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -635,8 +636,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Geoffrey Woo (LEF3S99LJ5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SERRICE CORP (9492KYU2PD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -645,7 +646,8 @@
 				GCC_PREFIX_HEADER = "Becky/Becky-Prefix.pch";
 				INFOPLIST_FILE = "Becky/Becky-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2B6F470F-E22F-460B-848E-89F592F296C4";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

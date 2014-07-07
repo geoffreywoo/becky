@@ -11,7 +11,7 @@
 #import "AddressBookViewController.h"
 #import <AddressBook/AddressBook.h>
 
-@interface AddressBookViewController ()
+@interface AddressBookViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UIButton *continueButton;
 
@@ -45,6 +45,20 @@ ABAddressBookRef addressBook;
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Sync Phone Contacts?"
+                                                        message:@"Becky is going to ask permission to access your address book. We use it to help you find people you know on Becky."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    NSLog(@"alertView did dismiss");
+    [self getContactsPermission];
+}
+
+- (void)getContactsPermission {
     // Do any additional setup after loading the view.
     __block BOOL accessGranted = NO;
     if (ABAddressBookRequestAccessWithCompletion != NULL) { // we're on iOS 6
@@ -95,6 +109,7 @@ ABAddressBookRef addressBook;
     NSString *contactsJson = [[NSString alloc] initWithData:contactsData encoding:NSUTF8StringEncoding];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString* phone = (NSString*)[defaults objectForKey:@"phone"];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"phone": phone, @"contacts": contactsJson};
     [manager POST:@"http://beckyapp.herokuapp.com/syncContacts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
