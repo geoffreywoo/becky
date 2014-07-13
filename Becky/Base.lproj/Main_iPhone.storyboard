@@ -305,6 +305,13 @@
                                             <rect key="frame" x="208" y="36" width="37" height="37"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </activityIndicatorView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWd-rM-1dO">
+                                            <rect key="frame" x="20" y="82" width="280" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="deviceRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.65098039220000004" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
@@ -313,6 +320,7 @@
                                     <outlet property="bballButton" destination="2rW-Et-phl" id="7zC-hj-u4U"/>
                                     <outlet property="beckyButton" destination="06b-gZ-IeJ" id="gdq-HX-SAv"/>
                                     <outlet property="initialsButton" destination="xww-jB-Ckl" id="IaJ-O8-DB6"/>
+                                    <outlet property="nameLabel" destination="rWd-rM-1dO" id="mJn-IG-6h7"/>
                                     <outlet property="pizzaButton" destination="zhb-Sk-JAV" id="W2P-p3-HzA"/>
                                     <outlet property="pooButton" destination="wGN-da-Aaa" id="Sk0-pG-ABW"/>
                                     <outlet property="scoreField" destination="Nnl-0G-Jtu" id="0Ui-JW-9Zt"/>

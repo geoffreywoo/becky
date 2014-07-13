@@ -33,4 +33,21 @@ NSString * const kBYMainViewCellIdentifier = @"BYMainViewCell";
     // Configure the view for the selected state
 }
 
+
+- (void) setPooToggled:(BOOL)pooToggled {
+    _pooToggled = pooToggled;
+    self.beckyButton.hidden = pooToggled;
+    self.bballButton.hidden = pooToggled;
+    self.pizzaButton.hidden = pooToggled;
+    self.pooButton.hidden = !pooToggled;
+    
+    self.scoreField.hidden = YES;
+    self.nameLabel.hidden = YES;
+}
+
+
+- (void) setDetailsToggled:(BOOL)detailsToggled {
+    
+}
+
 @end

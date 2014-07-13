@@ -72,6 +72,9 @@
    // self.timeoutPeriod = 24*60*60;
     self.timeoutPeriod = 20;
     self.score = @"???";
+    
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+ //   _friends = [userDefaults objectForKey:@"friends"];
 }
 
 -(void) tick:(NSTimer*)timer
@@ -79,7 +82,7 @@
     double currTime = [[NSDate date] timeIntervalSince1970];
     double diffTime = currTime - self.lastPooTimestamp;
 
-    if ((int)currTime%10 ==0) [self updateFriends:self.phone];
+    if ((int)currTime%10 ==0) [self updateFriends:self.phone inBackground:YES];
     
     if ( diffTime > self.timeoutPeriod) {//60*60*24) {
         self.pooTimeout = NO;
@@ -109,7 +112,7 @@
                                                 selector:@selector(tick:) userInfo:nil repeats:YES];
     
     [self getScore:self.phone];
-    [self getFriends:self.phone];
+    [self updateFriends:self.phone inBackground:NO];
     
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     NSString *channelName = [NSString stringWithFormat:@"a%@",self.phone];
@@ -131,7 +134,7 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification) {
                         NSLog(@"%@", notification.name);
-                        [self getFriends:self.phone];
+                        [self updateFriends:self.phone inBackground:YES];
                     }];
     
 }
@@ -148,46 +151,6 @@
     [self.timer invalidate];
 }
 
-
-
-- (void) getFriends:(NSString *)phone
-{
-    
-    NSDictionary *parameters = @{@"phone": phone};
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://beckyapp.herokuapp.com/getFriendList" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject
-                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                             error:&error];
-        
-        if (! jsonData) {
-            NSLog(@"Got an error: %@", error);
-        } else {
-            NSDictionary* json = [NSJSONSerialization
-                                  JSONObjectWithData:jsonData //1
-                                  
-                                  options:kNilOptions
-                                  error:&error];
-            NSArray *friendsArray = [json objectForKey:@"friendList"];
-            NSMutableArray *tempFriends = [[NSMutableArray alloc] init];
-            for (id object in friendsArray) {
-                BYFriend *f = [[BYFriend alloc] initWithJSON:object];
-                [tempFriends addObject:f];
-            }
-            //  _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
-            _friends = [NSArray arrayWithArray:tempFriends];
-            
-            NSLog(@"friends count: %i", [self.friends count]);
-            NSLog(@"friends: %@", self.friends);
-            [self.tableView reloadData];
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-}
-
 - (BYFriend *) findFriend: (NSString *)phone {
     for (BYFriend *f in self.friends) {
         if ([phone isEqualToString:f.phoneNumber]) {
@@ -197,7 +160,7 @@
     return nil;
 }
 
-- (void) updateFriends:(NSString *)phone
+- (void) updateFriends:(NSString *)phone inBackground:(BOOL)background
 {
     
     NSDictionary *parameters = @{@"phone": phone};
@@ -231,9 +194,10 @@
             //  _friends = @[@"GW",@"MB",@"SS",@"CK",@"LO",@"OB",@"GW",@"MB",@"SS",@"CK",@"LO",@"OB"];
             _friends = [NSArray arrayWithArray:tempFriends];
             
-            NSLog(@"friends count: %i", [self.friends count]);
-            NSLog(@"friends: %@", self.friends);
-            [self.tableView reloadData];
+   //         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+   //         [userDefaults setObject:_friends forKey:@"friends"];
+    //        [userDefaults synchronize];
+            if (!background) [self.tableView reloadData];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -369,24 +333,18 @@
         
     } else {
         self.pooToggle = !self.pooToggle;
-        NSLog(@"poo toggle selected");
-        [self checkPooToggleState];
+        [self checkPooToggleState:self.pooToggle];
     }
 }
 
-- (void) checkPooToggleState
+- (void) checkPooToggleState:(BOOL)toggle
 {
     NSLog(@"checkPooToggleState");
     for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j)
     {
         for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]-1; ++i)
         {
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).beckyButton.hidden = self.pooToggle;
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).bballButton.hidden = self.pooToggle;
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pizzaButton.hidden = self.pooToggle;
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).pooButton.hidden = !self.pooToggle;
-            
-            ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]).scoreField.hidden = YES;
+            [((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]) setPooToggled:toggle];
         }
     }
 }
@@ -441,7 +399,6 @@
     if (!cell) {
         cell = [[BYMainViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBYMainViewCellIdentifier];
     }
-    
     BYFriend *friend = [self.friends objectAtIndex:[indexPath row]];
     
     [[cell initialsButton] setTitle:[friend initials] forState:UIControlStateNormal];
@@ -484,6 +441,10 @@
     cell.scoreField.hidden = YES;
     
     cell.activity.hidden = YES;
+    
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", friend.firstName, friend.lastName];
+    cell.nameLabel.hidden = YES;
+    
     
     return cell;
 }
@@ -545,6 +506,7 @@
 
     }
     ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]]).scoreField.hidden = scoreShowing;
+    ((BYMainViewCell*)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:button.tag inSection:0]]).nameLabel.hidden =scoreShowing;
 }
 
 - (void) sentFrom:(NSString*) from to:(NSString*)to cell:(BYMainViewCell*)cell withEmoji:(NSString*)emoji

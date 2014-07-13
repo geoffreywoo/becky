@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BYFriend.h"
 
 extern NSString * const kBYMainViewCellIdentifier;
 
@@ -19,4 +20,12 @@ extern NSString * const kBYMainViewCellIdentifier;
 @property (nonatomic, strong) IBOutlet UIButton *initialsButton;
 @property (nonatomic, strong) IBOutlet UILabel *scoreField;
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activity;
+@property (nonatomic, strong) IBOutlet UILabel *nameLabel;
+
+@property (nonatomic) BOOL pooToggled;
+@property (nonatomic) BOOL detailsToggled;
+
+- (void) loadFriend:(BYFriend*)friend;
+
+
 @end
