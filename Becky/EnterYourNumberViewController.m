@@ -15,6 +15,9 @@
 
 @property (nonatomic, weak) IBOutlet UITextField *phoneField;
 @property (nonatomic, weak) IBOutlet UIButton *goButton;
+@property (weak, nonatomic) IBOutlet UIButton *countryCodeButton;
+@property (weak, nonatomic) IBOutlet UIButton *countryNameButton;
+@property (weak, nonatomic) IBOutlet CountryPicker *countryPicker;
 
 @end
 
@@ -34,8 +37,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.phoneField addTarget:self
-                  action:@selector(textFieldDidChange:)
-        forControlEvents:UIControlEventEditingChanged];
+                        action:@selector(textFieldDidChange:)
+              forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -45,12 +48,17 @@
     self.goButton.hidden = YES;
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"triangular_pink@2x.png"]];
+    
+    UIColor *color = [UIColor whiteColor];
+    self.phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"(XXX) XXX-XXXX" attributes:@{NSForegroundColorAttributeName: color}];
+    
+    [self.countryPicker setSelectedCountryCode:@"US"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.phoneField setTintColor:[UIColor whiteColor]];
-    [self.phoneField becomeFirstResponder];
+//    [self.phoneField becomeFirstResponder];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -93,7 +101,6 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     NSLog(@"textFieldShouldBeginEditing");
-    textField.text = @"";
     self.goButton.hidden = YES;
     return YES;
 }
@@ -106,8 +113,17 @@
     NSLog(@"textFieldDidEndEditing");
 }
 
+- (IBAction)pickCountry:(id)sender {
+    [self.phoneField resignFirstResponder];
+    self.goButton.hidden = YES;
+    self.countryPicker.hidden = NO;
+}
 
-
+- (void)countryPicker:(CountryPicker *)picker didSelectCountryWithName:(NSString *)name code:(NSString *)code
+{
+    NSLog(@"%@ %@", name, code);
+    [self.countryNameButton setTitle:name forState:UIControlStateNormal];
+}
 
 /*
 #pragma mark - Navigation
