@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1C057E197A900C008D1D6C /* PhoneFormats.dat in Resources */ = {isa = PBXBuildFile; fileRef = 0D1C057D197A900C008D1D6C /* PhoneFormats.dat */; };
+		0D1C0581197A9059008D1D6C /* RMPhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1C0580197A9059008D1D6C /* RMPhoneFormat.m */; };
 		60BA5C6A1944008F008197CB /* BYInviteMenuViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */; };
 		60BA5C6D194400A0008197CB /* BYInviteViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C6C194400A0008197CB /* BYInviteViewCell.m */; };
 		60BA5C701946579F008197CB /* BYInviteMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60BA5C6F1946579F008197CB /* BYInviteMenuViewController.m */; };
@@ -70,6 +72,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D1C057D197A900C008D1D6C /* PhoneFormats.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = PhoneFormats.dat; sourceTree = "<group>"; };
+		0D1C057F197A9059008D1D6C /* RMPhoneFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMPhoneFormat.h; sourceTree = "<group>"; };
+		0D1C0580197A9059008D1D6C /* RMPhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMPhoneFormat.m; sourceTree = "<group>"; };
 		46BCBE7E17974A82AB52DDCD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		60BA5C681944008F008197CB /* BYInviteMenuViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BYInviteMenuViewCell.h; sourceTree = "<group>"; };
 		60BA5C691944008F008197CB /* BYInviteMenuViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BYInviteMenuViewCell.m; sourceTree = "<group>"; };
@@ -276,6 +281,7 @@
 		60D6DBD3193FD8440015D890 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0D1C057D197A900C008D1D6C /* PhoneFormats.dat */,
 				60D6DBD4193FD8440015D890 /* Becky-Info.plist */,
 				60D6DBD5193FD8450015D890 /* InfoPlist.strings */,
 				60D6DBD8193FD8450015D890 /* main.m */,
@@ -305,6 +311,8 @@
 		60D6DC24194006960015D890 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				0D1C057F197A9059008D1D6C /* RMPhoneFormat.h */,
+				0D1C0580197A9059008D1D6C /* RMPhoneFormat.m */,
 				60D6DBE4193FD8450015D890 /* BYViewController.h */,
 				60D6DBE5193FD8450015D890 /* BYViewController.m */,
 				60D6DC08193FDADF0015D890 /* EnterYourNumberViewController.h */,
@@ -400,6 +408,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60D6DC3A194037B30015D890 /* poo.png in Resources */,
+				0D1C057E197A900C008D1D6C /* PhoneFormats.dat in Resources */,
 				60BA5C781946DAB4008197CB /* load.png in Resources */,
 				60BA5C7A1946DAB8008197CB /* track.png in Resources */,
 				60ED1B2719482EC400B95AD8 /* becky.wav in Resources */,
@@ -475,6 +484,7 @@
 				60BA5C701946579F008197CB /* BYInviteMenuViewController.m in Sources */,
 				60D6DBDD193FD8450015D890 /* BYAppDelegate.m in Sources */,
 				60D6DC34194036A60015D890 /* BYHomeViewController.m in Sources */,
+				0D1C0581197A9059008D1D6C /* RMPhoneFormat.m in Sources */,
 				60D6DC22193FF9B50015D890 /* VerifyYourNumberViewController.m in Sources */,
 				60D6DC0A193FDADF0015D890 /* EnterYourNumberViewController.m in Sources */,
 				60D6DC3D194038EB0015D890 /* BYMainViewCell.m in Sources */,

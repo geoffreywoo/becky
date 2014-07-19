@@ -10,6 +10,7 @@
 #import <AFNetworking.h>
 #import "EnterYourNumberViewController.h"
 #import "VerifyYourNumberViewController.h"
+#import "RMPhoneFormat.h"
 
 @interface EnterYourNumberViewController () <UITextFieldDelegate>
 
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *countryCodeButton;
 @property (weak, nonatomic) IBOutlet UIButton *countryNameButton;
 @property (weak, nonatomic) IBOutlet CountryPicker *countryPicker;
+@property (nonatomic, strong) RMPhoneFormat *phoneFormat;
 
 @end
 
@@ -39,6 +41,8 @@
     [self.phoneField addTarget:self
                         action:@selector(textFieldDidChange:)
               forControlEvents:UIControlEventEditingChanged];
+    
+    self.phoneFormat = [[RMPhoneFormat alloc] initWithDefaultCountry:@"US"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,12 +57,13 @@
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"(XXX) XXX-XXXX" attributes:@{NSForegroundColorAttributeName: color}];
     
     [self.countryPicker setSelectedCountryCode:@"US"];
+    
+    [self.phoneField becomeFirstResponder];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [self.phoneField setTintColor:[UIColor whiteColor]];
-//    [self.phoneField becomeFirstResponder];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -90,10 +95,11 @@
 - (void)textFieldDidChange:(UITextField*)textField
 {
     NSLog(@"textFieldDidChange: %d", textField.text.length);
-    if (textField.text.length > 9) {
+    
+    NSString *number = [NSString stringWithFormat:@"%@%@",self.countryCodeButton.titleLabel.text,textField.text];
+    
+    if ([self.phoneFormat isPhoneNumberValid:number]) {
         self.goButton.hidden = NO;
-    } else if (textField.text.length > 10) {
-        [textField resignFirstResponder];
     } else {
         self.goButton.hidden = YES;
     }
@@ -101,7 +107,16 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     NSLog(@"textFieldShouldBeginEditing");
-    self.goButton.hidden = YES;
+    self.countryPicker.hidden = YES;
+
+    NSString *number = [NSString stringWithFormat:@"%@%@",self.countryCodeButton.titleLabel.text,textField.text];
+    
+    if ([self.phoneFormat isPhoneNumberValid:number]) {
+        self.goButton.hidden = NO;
+    } else {
+        self.goButton.hidden = YES;
+    }
+    
     return YES;
 }
 
@@ -121,8 +136,17 @@
 
 - (void)countryPicker:(CountryPicker *)picker didSelectCountryWithName:(NSString *)name code:(NSString *)code
 {
-    NSLog(@"%@ %@", name, code);
     [self.countryNameButton setTitle:name forState:UIControlStateNormal];
+    self.phoneFormat = [[RMPhoneFormat alloc] initWithDefaultCountry:code];
+    
+    NSString *callingCode = [self.phoneFormat defaultCallingCode];
+    
+    if (callingCode) {
+        callingCode = [NSString stringWithFormat:@"+%@",callingCode];
+    } else {
+        callingCode = @"+1";
+    }
+    [self.countryCodeButton setTitle:callingCode forState:UIControlStateNormal];
 }
 
 /*
