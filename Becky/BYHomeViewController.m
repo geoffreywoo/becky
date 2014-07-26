@@ -165,7 +165,7 @@
     
     NSDictionary *parameters = @{@"phone": phone};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://beckyapp.herokuapp.com/getFriendList" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:@"https://beckyapp.herokuapp.com/v2/getFriendList" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject
@@ -209,7 +209,7 @@
 {
     NSDictionary *parameters = @{@"phone": phone};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://beckyapp.herokuapp.com/getScore" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:@"https://beckyapp.herokuapp.com/v2/getScore" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject
@@ -519,7 +519,7 @@
     [cell pizzaButton].hidden = YES;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"http://beckyapp.herokuapp.com/send" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:@"https://beckyapp.herokuapp.com/v2/send" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject

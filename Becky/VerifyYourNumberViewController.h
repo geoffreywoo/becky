@@ -10,6 +10,4 @@
 
 @interface VerifyYourNumberViewController : UIViewController
 
-@property (nonatomic, strong) NSString *phone;
-
 @end

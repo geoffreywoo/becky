@@ -69,8 +69,6 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"VerifySegue"]) {
-        VerifyYourNumberViewController *destination = (VerifyYourNumberViewController *)segue.destinationViewController;
-        destination.phone = self.phoneField.text;
     }
 }
 
@@ -78,9 +76,12 @@
     NSString *phone = self.phoneField.text;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *parameters = @{@"phone": phone};
-    [manager POST:@"http://beckyapp.herokuapp.com/signup" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *parameters = @{@"phone": phone, @"country_code": [self.phoneFormat defaultCallingCode]};
+    [manager POST:@"https://beckyapp.herokuapp.com/v2/signup" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[responseObject objectForKey:@"phone"] forKey:@"phone"];
+        [defaults synchronize];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -98,7 +99,7 @@
     
     NSString *number = [NSString stringWithFormat:@"%@%@",self.countryCodeButton.titleLabel.text,textField.text];
     
-    if ([self.phoneFormat isPhoneNumberValid:number]) {
+    if (textField.text.length > 4 && [self.phoneFormat isPhoneNumberValid:number]) {
         self.goButton.hidden = NO;
     } else {
         self.goButton.hidden = YES;
@@ -111,7 +112,7 @@
 
     NSString *number = [NSString stringWithFormat:@"%@%@",self.countryCodeButton.titleLabel.text,textField.text];
     
-    if ([self.phoneFormat isPhoneNumberValid:number]) {
+    if (textField.text.length > 4 && [self.phoneFormat isPhoneNumberValid:number]) {
         self.goButton.hidden = NO;
     } else {
         self.goButton.hidden = YES;
