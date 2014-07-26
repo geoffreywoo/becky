@@ -99,20 +99,16 @@ ABAddressBookRef addressBook;
         [contacts addObject:contact];
     }
     
-    NSDate *date = [NSDate date];
-    NSTimeInterval ti = [date timeIntervalSince1970];
-    NSNumber *unixTimestamp = [NSNumber numberWithInt:ti];
-    
     NSLog(@"contacts: %@",contacts);
     
     NSData *contactsData = [NSJSONSerialization dataWithJSONObject:contacts options:0 error:nil];
     NSString *contactsJson = [[NSString alloc] initWithData:contactsData encoding:NSUTF8StringEncoding];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString* phone = (NSString*)[defaults objectForKey:@"phone"];
+    NSString *phone = [defaults stringForKey:@"phone"];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"phone": phone, @"contacts": contactsJson};
-    [manager POST:@"http://beckyapp.herokuapp.com/syncContacts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:@"https://beckyapp.herokuapp.com/v2/syncContacts" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         self.continueButton.hidden = NO;
         self.activityIndicator.hidden = YES;

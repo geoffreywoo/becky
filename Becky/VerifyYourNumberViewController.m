@@ -56,13 +56,14 @@
 }
 
 - (IBAction)signUp {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *code = self.verifyField.text;
-    NSString *phone = self.phone;
+    NSString *phone = [defaults stringForKey:@"phone"];
     NSLog(@"%@, %@",code,phone);
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *parameters = @{@"phone": phone, @"code": code};
-    [manager POST:@"http://beckyapp.herokuapp.com/verify" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:@"https://beckyapp.herokuapp.com/v2/verify" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject
@@ -75,19 +76,11 @@
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Verification Failed" message:@"Retry your code, or re-enter your phone number!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
             [alert show];
         } else {
-            NSDictionary* json = [NSJSONSerialization
-                                  JSONObjectWithData:jsonData //1
-                                  
-                                  options:kNilOptions 
-                                  error:&error];
-            NSLog(@"canonical phone: %@",[json objectForKey:@"phone"]);
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            [defaults setObject:[json objectForKey:@"phone"] forKey:@"phone"];
-            [defaults synchronize];
+            NSLog(@"canonical phone: %@", phone);
             [self performSegueWithIdentifier:@"HomeViewSegue" sender:self];
             
             PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-            NSString *channelName = [NSString stringWithFormat:@"a%@",[json objectForKey:@"phone"]];
+            NSString *channelName = [NSString stringWithFormat:@"a%@", phone];
             [currentInstallation addUniqueObject:channelName forKey:@"channels"];
             [currentInstallation saveInBackground];
         }

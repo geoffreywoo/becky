@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CountryPicker.h"
 
-@interface EnterYourNumberViewController : UIViewController
+@interface EnterYourNumberViewController : UIViewController <CountryPickerDelegate>
 
 @end
